@@ -3,13 +3,22 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "engines": {
+        "node": "5.9.1"
+    },
+    "main": "index.js",
     "scripts": {
-        "start": "node server/server.js"
+        "start": "node index.js"
     },
     "dependencies": {
         "bulma": "^0.3.1",
         "express": "^4.14.0",
         "socket.io": "^1.7.2",
         "vue": "^2.1.10"
-    }
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express"
+    ]
 }
