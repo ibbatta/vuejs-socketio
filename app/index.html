@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket + Vue.js</title>
+    <link rel="stylesheet" href="npm/bulma/css/bulma.css">
+</head>
+
+<body>
+    <nav class="nav has-shadow" id="top">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="../index.html">
+                    BULMA INCOMING
+                </a>
+            </div>
+            <span class="nav-toggle">
+        <span></span>
+            <span></span>
+            <span></span>
+            </span>
+            <div class="nav-right nav-menu">
+                <a class="nav-item is-tab is-active">
+                Home
+              </a>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container content">
+            <div id="chat" class="box">
+                <ul class="messages">
+                    <li v-for="message in messages" v-text="message.text"></li>
+                </ul>
+                <form v-model="form" v-on:submit.prevent="onSubmit">
+                    <label class="label">Message</label>
+                    <p class="control">
+                        <textarea v-model="input" class="textarea" placeholder="Textarea"></textarea>
+                    </p>
+                    <div class="control is-grouped">
+                        <p class="control">
+                            <button v-on:click="submit(input)" class="button is-primary" :disabled="!input">Submit</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script src="npm/vue/dist/vue.min.js"></script>
+    <script src="npm/socket.io-client/dist/socket.io.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>
