@@ -19,7 +19,6 @@
                 if (message) {
                     socket.emit('chat-message', message);
                     this.input = '';
-                    this.input.focus();
                 }
             }
         }
