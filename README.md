@@ -46,7 +46,7 @@ The Gruntfile expose these tasks:
 
 ## __Todo__
 
-- [ ] Save messages on a database
+- [ ] Save messages on a firebase database
 
 
 ---
