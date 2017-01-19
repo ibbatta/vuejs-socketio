@@ -15,12 +15,13 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
+  socket.broadcast.emit('user-connected', socket.id);
+  console.log('user connected:', socket.id);
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
   socket.on('chat-message', function(msg) {
-    io.emit('chat-message', msg);
+    io.emit('chat-message', { msg: msg, userId: socket.id });
   });
 });
 
