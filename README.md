@@ -1,15 +1,16 @@
-# __PERSONAL VUE.JS + SOCKET.IO PROJECT__
+# __PERSONAL VUE.JS + SOCKET.IO CHAT PROJECT__
 
 
->This repo contains a personal test to learn something new with Vue.js and Socket.io (plus Bulma css framework)
+>This repo contains a personal javascript chat to learn and test something about Vue.js and Socket.io (plus Bulma css framework)
 
 ---
 
 ## __What this boilerplate contains__
 
-- [x] Vue javascript framework
+- [x] Vue js framework
 - [x] Bulma css framework
-- [x] Socket.io websocket
+- [x] Socket.io
+- [x] Lodash js framework
 
 
 ---
