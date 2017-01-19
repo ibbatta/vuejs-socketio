@@ -1,8 +1,16 @@
 {
-    "name": "websocket",
+    "name": "vuejs-socketio",
+    "description": "Custom test to learn vue.js and socket.io",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "keywords": [
+        "node",
+        "heroku",
+        "express",
+        "vuejs",
+        "socketio"
+    ],
     "engines": {
         "node": "5.9.1"
     },
@@ -10,15 +18,12 @@
     "scripts": {
         "start": "node index.js"
     },
+    "author": "Maurizio Battaghini",
+    "homepage": "https://github.com/ibbatta/vuejs-socketio",
     "dependencies": {
         "bulma": "^0.3.1",
         "express": "^4.14.0",
         "socket.io": "^1.7.2",
         "vue": "^2.1.10"
-    },
-    "keywords": [
-        "node",
-        "heroku",
-        "express"
-    ]
+    }
 }
