@@ -4,13 +4,6 @@
 
   var socket = new io();
 
-  // USER
-  var VUE_user = new Vue({
-    data: {
-      id: null
-    }
-  });
-
   // CHAT
   var VUE_chat = new Vue({
     el: '#chat',
@@ -46,9 +39,12 @@
     }
   });
 
+  socket.on('clean-chat', function() {
+    VUE_chat.messages = [];
+  });
+
   socket.on('chat-message', function(data) {
-    console.log(data);
-    VUE_chat.messages.push({ text: data.msg, userId: data.userId });
+    VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: data.time });
   });
 
   socket.on('user-connected', function(userId) {
