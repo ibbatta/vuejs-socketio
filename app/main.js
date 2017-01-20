@@ -4,13 +4,6 @@
 
   var socket = new io();
 
-  // USER
-  var VUE_user = new Vue({
-    data: {
-      id: null
-    }
-  });
-
   // CHAT
   var VUE_chat = new Vue({
     el: '#chat',
@@ -25,7 +18,7 @@
       },
       submit: function(message) {
         if (message) {
-          socket.emit('chat-message', message);
+          socket.emit('send-message', message);
           this.input = '';
         }
       }
@@ -46,9 +39,13 @@
     }
   });
 
-  socket.on('chat-message', function(data) {
-    console.log(data);
-    VUE_chat.messages.push({ text: data.msg, userId: data.userId });
+  socket.on('clean-chat', function() {
+    VUE_chat.messages = [];
+  });
+
+  socket.on('read-message', function(data) {
+    var timeConverted = new moment(data.time).format('DD/MM/YYYY - hh:mm');
+    VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: timeConverted });
   });
 
   socket.on('user-connected', function(userId) {

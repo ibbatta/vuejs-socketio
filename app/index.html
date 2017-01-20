@@ -15,15 +15,28 @@
                 <div id="chat" class="box">
                     <ul class="messages">
                         <li v-for="message in messages">
-                            <article class="message">
-                                <div class="message-header" v-text="message.userId"></div>
-                                <div class="message-body" v-text="message.text"></div>
-                            </article>
+                            <div class="message">
+                                <article class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-64x64">
+                                            <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <p>
+                                                <strong v-text="message.userId"></strong> (<small v-text="message.time"></small>)
+                                                <p v-text="message.text"></p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
                         </li>
                     </ul>
                     <hr>
                     <form v-on:submit.prevent="onSubmit">
-                        <label class="label">Message</label>
+                        <small>CTRL + ENTER to submit</small>
                         <p class="control">
                             <textarea v-model="input" v-on:keydown.ctrl.enter="submit(input)" class="textarea" placeholder="Write message"></textarea>
                         </p>
@@ -47,7 +60,9 @@
             </section>
         </div>
     </div>
+    <script src="npm/firebase/firebase.js"></script>
     <script src="npm/lodash/lodash.js"></script>
+    <script src="npm/moment/moment.js"></script>
     <script src="npm/vue/dist/vue.js"></script>
     <script src="npm/socket.io-client/dist/socket.io.js"></script>
     <script src="main.js"></script>
