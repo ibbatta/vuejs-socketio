@@ -7,10 +7,12 @@
 
 ## __What this boilerplate contains__
 
-- [x] Vue js framework
+- [x] Vue.js framework
 - [x] Bulma css framework
 - [x] Socket.io
-- [x] Lodash js framework
+- [x] Lodash.js
+- [x] Moment.js
+- [x] Firebase DB
 
 
 ---
@@ -46,7 +48,7 @@ The Gruntfile expose these tasks:
 
 ## __Todo__
 
-- [ ] Save messages on a firebase database
+- [ ] User connection and authentication
 
 
 ---
