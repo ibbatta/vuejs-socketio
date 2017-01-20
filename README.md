@@ -5,7 +5,7 @@
 
 ---
 
-## __What this boilerplate contains__
+## __What this project contains__
 
 - [x] Vue.js framework
 - [x] Bulma css framework
