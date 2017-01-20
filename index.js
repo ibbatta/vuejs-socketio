@@ -61,9 +61,8 @@ io.on('connection', function(socket) {
 
   io.emit('clean-chat');
   loadMessageFromDb(2);
-  socket.broadcast.emit('user-connected', socket.id);
 
-  saveUserToDb(socket.id);
+  socket.broadcast.emit('user-connected', socket.id);
 
   socket.on('send-message', function(msg) {
     saveMessageToDb(socket.id, msg);
@@ -84,13 +83,6 @@ function loadMessageFromDb(limit) {
     _.forEach(data, function(data) {
       io.emit('read-message', { msg: data.message, userId: data.userId, time: data.time });
     });
-  });
-}
-
-function saveUserToDb(userId) {
-  firebase.database().ref('/chat/users/').push({
-    id: userId,
-    logTime: new Date().getTime()
   });
 }
 
