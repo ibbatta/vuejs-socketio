@@ -25,7 +25,7 @@
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <strong v-text="message.userId"></strong> <small v-text="message.time"></small>
+                                                <strong v-text="message.userId"></strong> (<small v-text="message.time"></small>)
                                                 <p v-text="message.text"></p>
                                             </p>
                                         </div>
@@ -36,7 +36,7 @@
                     </ul>
                     <hr>
                     <form v-on:submit.prevent="onSubmit">
-                        <label class="label">Message</label>
+                        <small>CTRL + ENTER to submit</small>
                         <p class="control">
                             <textarea v-model="input" v-on:keydown.ctrl.enter="submit(input)" class="textarea" placeholder="Write message"></textarea>
                         </p>
@@ -62,6 +62,7 @@
     </div>
     <script src="npm/firebase/firebase.js"></script>
     <script src="npm/lodash/lodash.js"></script>
+    <script src="npm/moment/moment.js"></script>
     <script src="npm/vue/dist/vue.js"></script>
     <script src="npm/socket.io-client/dist/socket.io.js"></script>
     <script src="main.js"></script>

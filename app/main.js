@@ -18,7 +18,7 @@
       },
       submit: function(message) {
         if (message) {
-          socket.emit('chat-message', message);
+          socket.emit('send-message', message);
           this.input = '';
         }
       }
@@ -43,8 +43,9 @@
     VUE_chat.messages = [];
   });
 
-  socket.on('chat-message', function(data) {
-    VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: data.time });
+  socket.on('read-message', function(data) {
+    var timeConverted = new moment(data.time).format('DD/MM/YYYY - hh:mm');
+    VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: timeConverted });
   });
 
   socket.on('user-connected', function(userId) {

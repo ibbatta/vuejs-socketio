@@ -35,9 +35,9 @@ firebase.auth().signInAnonymously().catch(function(error) {
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    console.log(user);
+    console.log('user login');
   } else {
-    console.log('user logout');
+    console.log('user not found');
   }
 });
 
@@ -57,44 +57,17 @@ app.get('/', function(req, res) {
  */
 io.on('connection', function(socket) {
 
-  io.emit('clean-chat');
-
-  /**
-   * READ MESSAGES FROM FIREBASE
-   */
-  messagesDbRef.orderByChild('time').limitToLast(2).once('value', function(snapshot) {
-    var data = snapshot.val();
-    _.forEach(data, function(data) {
-      io.emit('chat-message', { msg: data.message, userId: data.userId, time: data.time });
-    });
-  });
-
   console.log('user connected:', socket.id);
+
+  io.emit('clean-chat');
+  loadMessageFromDb(2);
   socket.broadcast.emit('user-connected', socket.id);
 
-  /**
-   * WRITE LOGGED USER TO FIREBASE
-   */
-  firebase.database().ref('/chat/users/' + socket.id).push({
-    id: socket.id,
-    logTime: new Date().getTime()
-  });
+  saveUserToDb(socket.id);
 
-  socket.on('disconnect', function() {
-    console.log('user disconnected');
-  });
-  socket.on('chat-message', function(msg) {
-
-    /**
-     * WRITE POST TO FIREBASE
-     */
-    firebase.database().ref('/chat/messages/').push({
-      userId: socket.id,
-      message: msg,
-      time: new Date().getTime()
-    });
-
-    io.emit('chat-message', { msg: msg, userId: socket.id });
+  socket.on('send-message', function(msg) {
+    saveMessageToDb(socket.id, msg);
+    io.emit('read-message', { msg: msg, userId: socket.id, time: new Date().getTime() });
   });
 });
 
@@ -104,4 +77,28 @@ io.on('connection', function(socket) {
 http.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+function loadMessageFromDb(limit) {
+  messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
+    var data = snapshot.val();
+    _.forEach(data, function(data) {
+      io.emit('read-message', { msg: data.message, userId: data.userId, time: data.time });
+    });
+  });
+}
+
+function saveUserToDb(userId) {
+  firebase.database().ref('/chat/users/').push({
+    id: userId,
+    logTime: new Date().getTime()
+  });
+}
+
+function saveMessageToDb(userId, message) {
+  firebase.database().ref('/chat/messages/').push({
+    userId: userId,
+    message: message,
+    time: new Date().getTime()
+  });
+}
 
