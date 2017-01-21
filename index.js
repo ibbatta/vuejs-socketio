@@ -1,7 +1,4 @@
 'use strict';
-/**
- * INIT VARIABLES
- */
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
@@ -9,10 +6,7 @@ var io = require('socket.io')(http);
 var firebase = require('firebase');
 var _ = require('lodash');
 
-/**
- * FIREBASE CONFIG
- */
-var config = {
+var firebaseConfig = {
   apiKey: 'AIzaSyASUEwwyQ7LC4rwR7dZ_0uoHppKH44wLYc',
   authDomain: 'vue-db.firebaseapp.com',
   databaseURL: 'https://vue-db.firebaseio.com',
@@ -20,15 +14,10 @@ var config = {
   messagingSenderId: '924165386185'
 };
 
-/**
- * FIREBASE INIT
- */
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 var messagesDbRef = firebase.database().ref('chat/messages/');
 
-/**
- * ANONYMOUS USER
- */
+
 firebase.auth().signInAnonymously().catch(function(error) {
   console.log(error);
 });
@@ -41,9 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-/**
- * EXPRESS SETUP
- */
+
 app.set('port', (process.env.PORT || 3000));
 app.use('/npm', express.static('node_modules'));
 app.use(express.static('app'));
@@ -52,15 +39,13 @@ app.get('/', function(req, res) {
   res.sendfile('./app/index.html');
 });
 
-/**
- * SOCKET LISTEN EVENT
- */
+
 io.on('connection', function(socket) {
 
   console.log('user connected:', socket.id);
 
   io.emit('clean-chat');
-  loadMessageFromDb(2);
+  loadMessageFromDb(200);
 
   socket.broadcast.emit('user-connected', socket.id);
 
@@ -70,9 +55,7 @@ io.on('connection', function(socket) {
   });
 });
 
-/**
- * CREATE SERVER
- */
+
 http.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
