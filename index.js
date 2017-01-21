@@ -4,14 +4,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var firebase = require('firebase');
-
-var firebaseConfig = {
-  apiKey: 'AIzaSyASUEwwyQ7LC4rwR7dZ_0uoHppKH44wLYc',
-  authDomain: 'vue-db.firebaseapp.com',
-  databaseURL: 'https://vue-db.firebaseio.com',
-  storageBucket: 'vue-db.appspot.com',
-  messagingSenderId: '924165386185'
-};
+var firebaseConfig = require('./firebaseConfiguration.json');
 
 firebase.initializeApp(firebaseConfig);
 var messagesDbRef = firebase.database().ref('chat/messages/');

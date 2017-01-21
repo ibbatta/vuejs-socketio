@@ -1,0 +1,7 @@
+{
+  "apiKey": "AIzaSyASUEwwyQ7LC4rwR7dZ_0uoHppKH44wLYc",
+  "authDomain": "vue-db.firebaseapp.com",
+  "databaseURL": "https://vue-db.firebaseio.com",
+  "storageBucket": "vue-db.appspot.com",
+  "messagingSenderId": "924165386185"
+}
