@@ -4,7 +4,6 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var firebase = require('firebase');
-var _ = require('lodash');
 
 var firebaseConfig = {
   apiKey: 'AIzaSyASUEwwyQ7LC4rwR7dZ_0uoHppKH44wLYc',
@@ -63,9 +62,9 @@ http.listen(app.get('port'), function() {
 function loadMessageFromDb(limit) {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
     var data = snapshot.val();
-    _.forEach(data, function(data) {
-      io.emit('read-message', { msg: data.message, userId: data.userId, time: data.time });
-    });
+    Object.keys( data ).forEach( key => {
+      io.emit('read-message', { msg: data[key].message, userId: data[key].userId, time: data[key].time });
+    }); 
   });
 }
 
