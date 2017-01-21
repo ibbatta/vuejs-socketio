@@ -61,17 +61,18 @@ http.listen(app.get('port'), function() {
 
 function loadMessageFromDb(limit) {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
-    var data = snapshot.val();
-    Object.keys( data ).forEach( key => {
-      io.emit('read-message', { msg: data[key].message, userId: data[key].userId, time: data[key].time });
+    var messages = snapshot.val();
+    
+    Object.keys( messages ).forEach( key => {
+      io.emit('read-message', { msg: messages[key].message, userId: messages[key].userId, time: messages[key].time });
     }); 
   });
 }
 
 function saveMessageToDb(userId, message) {
   firebase.database().ref('/chat/messages/').push({
-    userId: userId,
-    message: message,
+    userId,
+    message,
     time: new Date().getTime()
   });
 }
