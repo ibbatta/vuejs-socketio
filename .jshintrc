@@ -19,22 +19,9 @@
     "angular",
     "URI",
     "moment",
-    "describe",
-    "beforeEach",
-    "afterEach",
-    "beforeAll",
-    "afterAll",
-    "expect",
-    "it",
-    "inject",
-    "spyOn",
+    "io()",
     "io",
-    "Vue",
-    "lodash",
-    "_",
-    "Firebase",
-    "firebase",
-    "Moment"
+    "Vue"
   ],
 
   // -----------------------------------------------------
