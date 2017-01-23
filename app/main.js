@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
 'use strict';
-
+let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
 (function() {
 
   var socket = new io();
@@ -61,5 +61,3 @@
   });
 
 })();
-
-let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
