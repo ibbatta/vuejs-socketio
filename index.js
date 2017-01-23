@@ -56,7 +56,7 @@ app.get('/', function(req, res) {
 /**
  * SOCKET LISTEN EVENT
  */
-io.on('connection', function(socket) {
+socketIO.on('connection', function(socket) {
 
   console.log('user connected:', socket.id);
 
