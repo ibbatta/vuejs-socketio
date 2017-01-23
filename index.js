@@ -6,7 +6,6 @@ var http = require('http').Server(app);
 var socketIO = require('socket.io')(http);
 var firebase = require('firebase');
 
-var _ = require('lodash');
 require('dotenv').config();
 
 var config = {
