@@ -12,8 +12,6 @@
 - [x] Vue.js framework
 - [x] Bulma css framework
 - [x] Socket.io
-- [x] Lodash.js
-- [x] Moment.js
 - [x] Firebase DB
 
 
@@ -50,7 +48,8 @@ The Gruntfile expose these tasks:
 
 ## __Todo__
 
-- [ ] User connection and authentication
+- [ ] User connection / authentication
+- [ ] Retrieve user info with a login and show it inside chat (username / profile pict)
 
 
 ---
@@ -70,7 +69,8 @@ The Gruntfile expose these tasks:
 
 ## __Credits__
 
-- [Maurizio Battaghini](https://github.com/ibbatta) (template develop)
+- [Maurizio Battaghini](https://github.com/ibbatta) (project develop)
+- [Davide Bontempelli](https://github.com/ilbonte) (project support and help develop)
 
 ---
 
