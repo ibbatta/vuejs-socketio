@@ -57,7 +57,9 @@ The Gruntfile expose these tasks:
 
 ## __Contributing__
 
+- If you don't have, create an account on [Firebase](https://www.firebase.com/)
 - Fork it!
+- Change the firebaseConfig variables with yours
 - Create your feature branch: `git checkout -b my-new-feature`
 - Commit your changes: `git commit -am 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
