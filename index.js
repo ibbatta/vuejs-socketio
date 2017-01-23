@@ -2,11 +2,22 @@
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var socketIO = require('socket.io')(http);
 var firebase = require('firebase');
-var firebaseConfig = require('./firebaseConfiguration.json');
 
-firebase.initializeApp(firebaseConfig);
+var _ = require('lodash');
+require('dotenv').config();
+
+var config = {
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTHDOMAIN,
+  databaseURL: process.env.DATABASEURL,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID
+};
+
+firebase.initializeApp(config);
+
 var messagesDbRef = firebase.database().ref('chat/messages/');
 
 
@@ -32,18 +43,18 @@ app.get('/', function(req, res) {
 });
 
 
-io.on('connection', function(socket) {
+socketIO.on('connection', function(socket) {
 
   console.log('user connected:', socket.id);
 
-  io.emit('clean-chat');
-  loadMessageFromDb(200);
+  socketIO.emit('clean-chat');
+  loadMessageFromDb(2);
 
   socket.broadcast.emit('user-connected', socket.id);
 
   socket.on('send-message', function(msg) {
     saveMessageToDb(socket.id, msg);
-    io.emit('read-message', { msg: msg, userId: socket.id, time: new Date().getTime() });
+    socketIO.emit('read-message', { msg: msg, userId: socket.id, time: new Date().getTime() });
   });
 });
 

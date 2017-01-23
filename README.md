@@ -1,5 +1,7 @@
 # __PERSONAL VUE.JS + SOCKET.IO CHAT PROJECT__
 
+[![bitHound Overall Score](https://www.bithound.io/github/ibbatta/vuejs-socketio/badges/score.svg)](https://www.bithound.io/github/ibbatta/vuejs-socketio)
+
 
 >This repo contains a personal javascript chat to learn and test something about Vue.js and Socket.io (plus Bulma css framework)
 
@@ -55,7 +57,9 @@ The Gruntfile expose these tasks:
 
 ## __Contributing__
 
+- If you don't have, create an account on [Firebase](https://www.firebase.com/)
 - Fork it!
+- Change the firebaseConfig variables with yours
 - Create your feature branch: `git checkout -b my-new-feature`
 - Commit your changes: `git commit -am 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
