@@ -1,5 +1,6 @@
+/* jshint esversion: 6 */
 'use strict';
-
+let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
 (function() {
 
   var socket = new io();
@@ -44,7 +45,7 @@
   });
 
   socket.on('read-message', function(data) {
-    var timeConverted = new moment(data.time).format('DD/MM/YYYY - hh:mm');
+    var timeConverted = formatTime(new Date(data.time));
     VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: timeConverted });
   });
 
@@ -60,4 +61,3 @@
   });
 
 })();
-
