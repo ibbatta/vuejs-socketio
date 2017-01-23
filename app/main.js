@@ -61,4 +61,4 @@
 
 })();
 
-let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`  
+let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
