@@ -66,10 +66,10 @@ http.listen(app.get('port'), function() {
 function loadMessageFromDb(limit) {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
     var messages = snapshot.val();
-    
-    Object.keys( messages ).forEach( key => {
-      io.emit('read-message', { msg: messages[key].message, userId: messages[key].userId, time: messages[key].time });
-    }); 
+
+    Object.keys(messages).forEach(key => {
+      socketIO.emit('read-message', { msg: messages[key].message, userId: messages[key].userId, time: messages[key].time });
+    });
   });
 }
 
