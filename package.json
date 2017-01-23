@@ -21,6 +21,7 @@
     "homepage": "https://github.com/ibbatta/vuejs-socketio",
     "dependencies": {
         "bulma": "^0.3.1",
+        "dotenv": "^4.0.0",
         "express": "^4.14.0",
         "firebase": "^3.6.6",
         "lodash": "^4.17.4",
