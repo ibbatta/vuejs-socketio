@@ -1,7 +1,6 @@
-/* jshint esversion: 6 */
 'use strict';
 var express = require('express');
-var app = require('express')();
+var app = express();
 var http = require('http').Server(app);
 var socketIO = require('socket.io')(http);
 var firebase = require('firebase');
