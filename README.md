@@ -33,14 +33,14 @@ Then:
 
 ## __Installation__
 
-Be sure to have a [Firebase](https://www.firebase.com/)
-Create a `.env` file and import change the variables with yours
-``` (.env file example)
+- Be sure to have a [Firebase](https://www.firebase.com/)
+- Create a `.env` file and import change the variables with yours _(like the example below)_
+```yarml
 APIKEY=YOUR_API_KEY
 AUTHDOMAIN=YOUR_AUTH_DOMAIN
 DATABASEURL=YOUR_DATABSE_URL
 ```
-From the directory of the project run `yarn`
+- From the directory of the project run `yarn`
 
 ---
 
