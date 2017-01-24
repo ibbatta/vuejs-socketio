@@ -33,6 +33,13 @@ Then:
 
 ## __Installation__
 
+Be sure to have a [Firebase](https://www.firebase.com/)
+Create a `.env` file and import change the variables with yours
+``` (.env file example)
+APIKEY=YOUR_API_KEY
+AUTHDOMAIN=YOUR_AUTH_DOMAIN
+DATABASEURL=YOUR_DATABSE_URL
+```
 From the directory of the project run `yarn`
 
 ---
@@ -56,11 +63,9 @@ The Gruntfile expose these tasks:
 
 ## __Contributing__
 
-- If you don't have, create an account on [Firebase](https://www.firebase.com/)
 - Fork it!
-- Change the firebaseConfig variables with yours
 - Create your feature branch: `git checkout -b my-new-feature`
-- Commit your changes: `git commit -am 'Add some feature'` (without your firebaseConfig)
+- Commit your changes: `git commit -am 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request
 
