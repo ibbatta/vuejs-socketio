@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 'use strict';
 let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
 (function() {
@@ -61,3 +60,4 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
   });
 
 })();
+
