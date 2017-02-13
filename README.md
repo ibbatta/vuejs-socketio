@@ -46,8 +46,8 @@ DATABASEURL=YOUR_DATABSE_URL
 
 ## __Usage__
 
-Once everything is installed, use grunt from the terminal to start the build tasks.
-The Gruntfile expose these tasks:
+Once everything is installed, use Yarn from the terminal to start the build tasks.
+The package.json expose these tasks:
 
 - `yarn start` (start the project locally)
 
