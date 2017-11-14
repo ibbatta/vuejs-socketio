@@ -13,13 +13,17 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
       input: ''
     },
     methods: {
-      onSubmit: function(event) {
-        event.preventDefault();
+      onSubmit: function($event) {
+        $event.preventDefault();
+        this.input = null;
       },
-      submit: function(message) {
-        if (message) {
-          socket.emit('send-message', message);
-          this.input = '';
+      submit: function(message, $event) {
+        if ($event.keyCode === 13 && !$event.shiftKey) {
+          if (message) {
+            $event.preventDefault();
+            socket.emit('send-message', message);
+            this.input = null;
+          }
         }
       }
     }
@@ -45,19 +49,25 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
 
   socket.on('read-message', function(data) {
     var timeConverted = formatTime(new Date(data.time));
-    VUE_chat.messages.push({ text: data.msg, userId: data.userId, time: timeConverted });
+    VUE_chat.messages.push({
+      text: data.msg,
+      userId: data.userId,
+      time: timeConverted
+    });
   });
 
   socket.on('user-connected', function(userId) {
     VUE_notification.visible = false;
     setTimeout(function() {
       VUE_notification.visible = true;
-      VUE_notification.datas.push({ userId: userId, show: true });
-    }, 500);
+      VUE_notification.datas.push({
+        userId: userId,
+        show: true
+      });
+    }, 1000);
     setTimeout(function() {
       VUE_notification.datas = [];
     }, 2000);
   });
 
 })();
-

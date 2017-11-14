@@ -36,13 +36,13 @@
                     </ul>
                     <hr>
                     <form v-on:submit.prevent="onSubmit">
-                        <small>CTRL + ENTER to submit</small>
+                        <small>Press ENTER to submit</small>
                         <p class="control">
-                            <textarea v-model="input" v-on:keydown.ctrl.enter="submit(input)" class="textarea" placeholder="Write message"></textarea>
+                            <textarea v-model="input" v-on:keydown="submit(input, $event)" class="textarea" placeholder="Write message"></textarea>
                         </p>
                         <div class="control is-grouped">
                             <p class="control">
-                                <button v-on:click="submit(input)" class="button is-primary" :disabled="!input">Submit</button>
+                                <button v-on:click="submit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
                             </p>
                         </div>
                     </form>
