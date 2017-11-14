@@ -7,7 +7,15 @@
 
 ---
 
+
 ## __What this project contains__
+
+<img src="./repo_readme_assets/logo-npm.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-yarn.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-node.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-firebase.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-vue.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-bulma.png" height="55">&nbsp;&nbsp;
 
 - [x] Vue.js framework
 - [x] Bulma css framework
@@ -16,6 +24,16 @@
 
 
 ---
+
+
+## __Browsers Support__
+
+| <img src="./repo_readme_assets/browsers/browser-ie.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-firefox.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-chrome.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-safari.svg" height="35"> |
+| --- | --- | --- | --- |
+| 9+ | latest | latest | latest |
+
+---
+
 
 ## __Set up__
 
@@ -31,6 +49,7 @@ Then:
 
 ---
 
+
 ## __Installation__
 
 - Be sure to have a [Firebase](https://www.firebase.com/) account
@@ -44,6 +63,7 @@ DATABASEURL=YOUR_DATABSE_URL
 
 ---
 
+
 ## __Usage__
 
 Once everything is installed, use Yarn from the terminal to start the build tasks.<br>
@@ -53,6 +73,7 @@ The package.json expose these tasks:
 
 ---
 
+
 ## __Todo__
 
 - [ ] User connection / authentication
@@ -60,6 +81,7 @@ The package.json expose these tasks:
 
 
 ---
+
 
 ## __Contributing__
 
@@ -74,15 +96,15 @@ The package.json expose these tasks:
 
 ## __Credits__
 
-- [Maurizio Battaghini](https://github.com/ibbatta) (project develop)
-- [Davide Bontempelli](https://github.com/ilbonte) (project support and help develop)
+- [Maurizio Battaghini](https://github.com/ibbatta) (project lead and main developer)
+- [Davide Bontempelli](https://github.com/ilbonte) (project support)
 
 ---
 
 
 ### __Troubleshootings__ ###
 
-This is just a personal test, created for demonstration and learn purpose only, it may or may not be a good fit for your project(s).
+This is just a personal project, created for study and demostration purpose only. It may or may not be a good fit for your need(s).
 
 ---
 

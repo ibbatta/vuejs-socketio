@@ -1,7 +1,16 @@
 {
   "name": "vuejs-socketio",
   "version": "1.0.0",
+  "author": "Maurizio Battaghini",
   "main": "index.js",
+  "homepage": "https://github.com/ibbatta/vuejs-socketio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibbatta/vuejs-socketio"
+  },
+  "bugs": {
+    "url": "https://github.com/ibbatta/vuejs-socketio/issues"
+  },
   "license": "MIT",
   "keywords": [
     "node",
@@ -10,14 +19,20 @@
     "vuejs",
     "socketio"
   ],
+  "private": true,
   "engines": {
-    "node": "6.9.1"
+    "node": ">=8.x.x",
+    "yarn": "^1.2.x",
+    "npm": ">= 5.5.x"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Maurizio Battaghini",
-  "homepage": "https://github.com/ibbatta/vuejs-socketio",
   "dependencies": {
     "bulma": "^0.3.1",
     "dotenv": "^4.0.0",
