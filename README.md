@@ -55,9 +55,11 @@ Then:
 - Be sure to have a [Firebase](https://www.firebase.com/) account
 - Create an `.env` file and import your Firebase credentials _(like the example below)_
 ```javascript
-APIKEY=YOUR_API_KEY
-AUTHDOMAIN=YOUR_AUTH_DOMAIN
-DATABASEURL=YOUR_DATABSE_URL
+APIKEY=FIREBASE_API_KEY
+AUTHDOMAIN=FIREBASE_AUTH_DOMAIN
+DATABASEURL=FIREBASE_DATABSE_URL
+PROJECTID=FIREBASE_PROJECT_ID
+STORAGEBUCKET=FIREBASE_STORAGE_BUCKET
 ```
 - From the directory of the project run `yarn`
 
