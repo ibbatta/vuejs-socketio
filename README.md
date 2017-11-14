@@ -3,7 +3,7 @@
 [![bitHound Overall Score](https://www.bithound.io/github/ibbatta/vuejs-socketio/badges/score.svg)](https://www.bithound.io/github/ibbatta/vuejs-socketio)
 
 
->This repo contains a personal javascript chat to learn and test something about Vue.js and Socket.io (plus Bulma css framework)
+>This repo contains a personal javascript chat to learn and test something about Vue.js and Socket.io (+ Bulma css framework)
 
 ---
 
@@ -21,8 +21,8 @@
 
 Before cloning the repo **be sure** you have installed:
 
-* [NodeJs & npm](http://nodejs.org/download/) (version >= 6.x)
-* [Yarn](https://yarnpkg.com/en/docs/install) (version >= 0.17.x)
+* [NodeJs & npm](http://nodejs.org/download/) (version >= 8.x.x)
+* [Yarn](https://yarnpkg.com/en/docs/install) (version >= 1.3.x)
 
 Then:
 
@@ -34,7 +34,7 @@ Then:
 ## __Installation__
 
 - Be sure to have a [Firebase](https://www.firebase.com/) account
-- Create an `.env` file and import the variables with your firebase credentials _(like the example below)_
+- Create an `.env` file and import your Firebase credentials _(like the example below)_
 ```javascript
 APIKEY=YOUR_API_KEY
 AUTHDOMAIN=YOUR_AUTH_DOMAIN
