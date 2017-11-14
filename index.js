@@ -22,7 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 9000));
 app.use('/npm', express.static('node_modules'));
 app.use(express.static('app'));
 
@@ -41,7 +41,11 @@ socketIO.on('connection', function(socket) {
 
   socket.on('send-message', function(msg) {
     saveMessageToDb(socket.id, msg);
-    socketIO.emit('read-message', { msg: msg, userId: socket.id, time: new Date().getTime() });
+    socketIO.emit('read-message', {
+      msg: msg,
+      userId: socket.id,
+      time: new Date().getTime()
+    });
   });
 });
 
@@ -54,7 +58,11 @@ function loadMessageFromDb(limit) {
     var messages = snapshot.val();
 
     Object.keys(messages).forEach(key => {
-      socketIO.emit('read-message', { msg: messages[key].message, userId: messages[key].userId, time: messages[key].time });
+      socketIO.emit('read-message', {
+        msg: messages[key].message,
+        userId: messages[key].userId,
+        time: messages[key].time
+      });
     });
   });
 }
@@ -66,4 +74,3 @@ function saveMessageToDb(userId, message) {
     time: new Date().getTime()
   });
 }
-

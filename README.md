@@ -76,6 +76,7 @@ The package.json expose these tasks:
 
 ## __Todo__
 
+- [ ] Update Vue and npm dependencies
 - [ ] User connection / authentication
 - [ ] Retrieve user info with a login and show it inside chat (username / profile pict)
 
