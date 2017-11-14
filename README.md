@@ -34,7 +34,7 @@ Then:
 ## __Installation__
 
 - Be sure to have a [Firebase](https://www.firebase.com/) account
-- Create an `.env` file and import change the variables with your firebase credentials _(like the example below)_
+- Create an `.env` file and import the variables with your firebase credentials _(like the example below)_
 ```javascript
 APIKEY=YOUR_API_KEY
 AUTHDOMAIN=YOUR_AUTH_DOMAIN
