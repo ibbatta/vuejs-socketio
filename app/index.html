@@ -40,6 +40,7 @@
                         <p class="control">
                             <textarea v-model="input" v-on:keydown="submit(input, $event)" class="textarea" placeholder="Write message"></textarea>
                         </p>
+                        <br>
                         <div class="control is-grouped">
                             <p class="control">
                                 <button v-on:click="submit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
