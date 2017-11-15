@@ -19,13 +19,14 @@
                                 <article class="media">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
-                                            <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                            <img v-if="message.userPict" v-bind:src="message.userPict || 'http://bulma.io/images/placeholders/128x128.png'" alt="profilePict">
+                                            <img v-if="!message.userPict" src="http://bulma.io/images/placeholders/128x128.png" alt="placeholderPict">
                                         </figure>
                                     </div>
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <strong v-text="message.userId"></strong> (<small v-text="message.time"></small>)
+                                                <strong v-text="message.userId || 'undefined'"></strong> (<small v-text="message.time"></small>)
                                                 <p v-text="message.text"></p>
                                             </p>
                                         </div>
@@ -35,22 +36,24 @@
                         </li>
                     </ul>
                     <hr>
-                    <div>
-
+                    <div v-if="!user" class="control is-grouped">
                         <p class="control">
-                            <button v-on:click="login($event)" class="button is-primary">Login with GITHUB</button>
+                            <button v-on:click="login($event)" class="button is-primary">Log-in with GITHUB to post a message</button>
                         </p>
-
-                        <small>Press ENTER to submit</small>
-                        <p class="control">
-                            <textarea v-model="input" v-on:keydown="submit(input, $event)" class="textarea" placeholder="Write message"></textarea>
-                        </p>
-                        <br>
-                        <div class="control is-grouped">
+                    </div>
+                    <div v-if="user">
+                        <form v-on:submit.prevent="onSubmit">
+                            <small>Press ENTER to submit</small>
                             <p class="control">
-                                <button v-on:click="submit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
+                                <textarea v-model="input" v-on:keydown="submit(input, $event)" class="textarea" placeholder="Write message"></textarea>
                             </p>
-                        </div>
+                            <br>
+                            <div class="control is-grouped">
+                                <p class="control">
+                                    <button v-on:click="submit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
+                                </p>
+                            </div>
+                        </form>
                     </div>
             </section>
             </div>

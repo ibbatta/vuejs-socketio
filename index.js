@@ -1,4 +1,5 @@
 'use strict';
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -8,14 +9,6 @@ var firebaseConfig = require('./config/firebaseConfig');
 
 firebase.initializeApp(firebaseConfig);
 var messagesDbRef = firebase.database().ref('/');
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log('user login');
-  } else {
-    console.log('user not found');
-  }
-});
 
 app.set('port', (process.env.PORT || 9000));
 app.use('/npm', express.static('node_modules'));
@@ -27,25 +20,24 @@ app.get('/', function(req, res) {
 
 socketIO.on('connection', function(socket) {
 
-  console.log(`user ${socket.id} connected`);
+  console.log(`connection ${socket.id}`);
 
   socketIO.emit('clean-chat');
   loadMessageFromDb(2);
 
-  socket.broadcast.emit('user-connected', socket.id);
+  socket.on('user-connected', function(userData) {
+    console.log(JSON.stringify(userData, null, 4));
+  });
 
-  socket.on('send-message', function(msg) {
-    saveMessageToDb(socket.id, msg);
+  socket.on('send-message', function(user, msg) {
+    saveMessageToDb(user, msg);
     socketIO.emit('read-message', {
+      userId: user.login,
       msg: msg,
-      userId: socket.id,
+      userPict: user.avatar_url || '',
       time: new Date().getTime()
     });
   });
-});
-
-http.listen(app.get('port'), function() {
-  console.log(`Node app is running on port: ${app.get('port')}`);
 });
 
 function loadMessageFromDb(limit) {
@@ -54,8 +46,9 @@ function loadMessageFromDb(limit) {
     if (messages) {
       Object.keys(messages).forEach(key => {
         socketIO.emit('read-message', {
+          userId: messages[key].login || 'undefined',
           msg: messages[key].message,
-          userId: messages[key].userId,
+          userPict: messages[key].avatar_url || '',
           time: messages[key].time
         });
       });
@@ -63,10 +56,17 @@ function loadMessageFromDb(limit) {
   });
 }
 
-function saveMessageToDb(userId, message) {
-  firebase.database().ref('/').push({
-    userId,
+function saveMessageToDb(userData, message) {
+  var login = userData.login;
+  var pict = userData.avatar_url;
+  firebase.database().ref(`/${login}`).push({
+    login,
     message,
+    pict,
     time: new Date().getTime()
   });
 }
+
+http.listen(app.get('port'), function() {
+  console.log(`Node app is running on port: ${app.get('port')}`);
+});
