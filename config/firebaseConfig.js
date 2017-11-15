@@ -8,4 +8,5 @@ module.exports = {
   databaseURL: process.env.DATABASEURL,
   projectId: process.env.PROJECTID,
   storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID
 };

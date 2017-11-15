@@ -2,17 +2,12 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var socketIO = require('socket.io')(http);
 var firebase = require('firebase');
+var socketIO = require('socket.io')(http);
 var firebaseConfig = require('./config/firebaseConfig');
 
 firebase.initializeApp(firebaseConfig);
-
-var messagesDbRef = firebase.database().ref('/chat');
-
-firebase.auth().signInAnonymously().catch(function(error) {
-  console.log(error);
-});
+var messagesDbRef = firebase.database().ref('/');
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -56,19 +51,20 @@ http.listen(app.get('port'), function() {
 function loadMessageFromDb(limit) {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
     var messages = snapshot.val();
-
-    Object.keys(messages).forEach(key => {
-      socketIO.emit('read-message', {
-        msg: messages[key].message,
-        userId: messages[key].userId,
-        time: messages[key].time
+    if (messages) {
+      Object.keys(messages).forEach(key => {
+        socketIO.emit('read-message', {
+          msg: messages[key].message,
+          userId: messages[key].userId,
+          time: messages[key].time
+        });
       });
-    });
+    }
   });
 }
 
 function saveMessageToDb(userId, message) {
-  firebase.database().ref('/chat').push({
+  firebase.database().ref('/').push({
     userId,
     message,
     time: new Date().getTime()

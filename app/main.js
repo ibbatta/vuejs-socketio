@@ -1,5 +1,7 @@
 'use strict';
+
 let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
+
 (function() {
 
   var socket = new io();
@@ -25,6 +27,19 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
             this.input = null;
           }
         }
+      },
+      login: function($event) {
+        $event.preventDefault();
+        var provider = new firebase.auth.GithubAuthProvider();
+        provider.addScope('user:read');
+        firebase.auth().signInWithPopup(provider)
+          .then(function(result) {
+            console.log('USER', result)
+            // ...
+          }).catch(function(error) {
+            console.error('ERROR', error);
+            // ...
+          });
       }
     }
   });
@@ -68,6 +83,15 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
     setTimeout(function() {
       VUE_notification.datas = [];
     }, 2000);
+  });
+
+  firebase.initializeApp({
+    apiKey: 'AIzaSyD23ChWSD1Ua4oDxFnodt-C_BoxvsQ0D9U',
+    authDomain: 'vue-db-socket.firebaseapp.com',
+    databaseURL: 'https://vue-db-socket.firebaseio.com',
+    projectId: 'vue-db-socket',
+    storageBucket: 'vue-db-socket.appspot.com',
+    messagingSenderId: '52286000408'
   });
 
 })();
