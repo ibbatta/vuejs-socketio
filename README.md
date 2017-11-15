@@ -79,6 +79,7 @@ The package.json expose these tasks:
 ## __Todo__
 
 - [x] Update Vue and npm dependencies
+- [ ] Rewrite the repository with Webpack and Vue components
 - [ ] Update Bulma template
 - [ ] User connection / authentication
 - [ ] Retrieve user info with a login and show it inside chat (username / profile pict)

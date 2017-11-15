@@ -8,7 +8,7 @@ var firebaseConfig = require('./config/firebaseConfig');
 
 firebase.initializeApp(firebaseConfig);
 
-var messagesDbRef = firebase.database().ref('/chat/');
+var messagesDbRef = firebase.database().ref('/chat');
 
 firebase.auth().signInAnonymously().catch(function(error) {
   console.log(error);
@@ -68,7 +68,7 @@ function loadMessageFromDb(limit) {
 }
 
 function saveMessageToDb(userId, message) {
-  firebase.database().ref('/chat/').push({
+  firebase.database().ref('/chat').push({
     userId,
     message,
     time: new Date().getTime()
