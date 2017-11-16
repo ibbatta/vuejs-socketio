@@ -26,15 +26,15 @@ socketIO.on('connection', function(socket) {
   loadMessageFromDb(2);
 
   socket.on('user-connected', function(userData) {
-    console.log(JSON.stringify(userData, null, 4));
+    console.log(`USER CONNECTED: ${userData.login}`);
   });
 
-  socket.on('send-message', function(user, msg) {
-    saveMessageToDb(user, msg);
+  socket.on('send-message', function(formData) {
+    saveMessageToDb(formData);
     socketIO.emit('read-message', {
-      userId: user.login,
-      msg: msg,
-      userPict: user.avatar_url || '',
+      msg: formData.message,
+      userId: formData.user.login,
+      userPict: formData.avatar_url,
       time: new Date().getTime()
     });
   });
@@ -46,9 +46,9 @@ function loadMessageFromDb(limit) {
     if (messages) {
       Object.keys(messages).forEach(key => {
         socketIO.emit('read-message', {
-          userId: messages[key].login || 'undefined',
           msg: messages[key].message,
-          userPict: messages[key].avatar_url || '',
+          userId: messages[key].user,
+          userPict: messages[key].pict,
           time: messages[key].time
         });
       });
@@ -56,12 +56,13 @@ function loadMessageFromDb(limit) {
   });
 }
 
-function saveMessageToDb(userData, message) {
-  var login = userData.login;
-  var pict = userData.avatar_url;
-  firebase.database().ref(`/${login}`).push({
-    login,
+function saveMessageToDb(formData) {
+  var user = formData.user.login;
+  var pict = formData.user.avatar_url;
+  var message = formData.message;
+  firebase.database().ref('/').push({
     message,
+    user,
     pict,
     time: new Date().getTime()
   });

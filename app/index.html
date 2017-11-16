@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <pre v-bind="user"></pre>
     <div class="columns">
         <div class="column is-two-thirds">
             <section class="section">
@@ -19,14 +20,18 @@
                                 <article class="media">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
-                                            <img v-if="message.userPict" v-bind:src="message.userPict || 'http://bulma.io/images/placeholders/128x128.png'" alt="profilePict">
-                                            <img v-if="!message.userPict" src="http://bulma.io/images/placeholders/128x128.png" alt="placeholderPict">
+                                            <a target="_blank" v-bind:href="'http://github.com/' + message.userId">
+                                              <img v-attr="src: message.userPict" alt="profilePict">
+                                            </a>
                                         </figure>
                                     </div>
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <strong v-text="message.userId || 'undefined'"></strong> (<small v-text="message.time"></small>)
+                                                <a target="_blank" v-bind:href="'http://github.com/' + message.userId">
+                                                  <strong v-text="message.userId"></strong>
+                                                </a>
+                                                <small v-text="message.time"></small>
                                                 <p v-text="message.text"></p>
                                             </p>
                                         </div>

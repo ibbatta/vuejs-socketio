@@ -16,7 +16,7 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
   var socket = new io();
   var provider = new firebase.auth.GithubAuthProvider();
 
-  provider.addScope('user:read');
+  provider.addScope('user');
 
   // CHAT
   var VUE_chat = new Vue({
@@ -34,9 +34,12 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
       },
       submit: function(message, $event) {
         if ($event.keyCode === 13 && !$event.shiftKey) {
-          if (message) {
-            $event.preventDefault();
-            socket.emit('send-message', this.user, message);
+          $event.preventDefault();
+          if (this.user && message) {
+            socket.emit('send-message', {
+              user: this.user,
+              message: message
+            });
             this.input = null;
           }
         }
@@ -45,7 +48,6 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
         var self = this;
         firebase.auth().signInWithPopup(provider)
           .then(function(result) {
-            console.log('USER', result)
             if (result && result.additionalUserInfo && result.additionalUserInfo.profile) {
               self.user = result.additionalUserInfo.profile;
               socket.emit('user-connected', self.user);
@@ -80,21 +82,21 @@ let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeSt
     var timeConverted = formatTime(new Date(data.time));
     VUE_chat.messages.push({
       text: data.msg,
-      userId: data.login,
-      userPict: data.avatar_url,
+      userId: data.userId,
+      userPict: data.userPict,
       time: timeConverted
     });
   });
 
-  socket.on('user-connected', function(userId) {
+  socket.on('user-connected', function(userData) {
     VUE_notification.visible = false;
     setTimeout(function() {
       VUE_notification.visible = true;
       VUE_notification.datas.push({
-        userId: userId,
+        userId: userData.id,
         show: true
       });
-    }, 1000);
+    }, 2000);
     setTimeout(function() {
       VUE_notification.datas = [];
     }, 2000);
