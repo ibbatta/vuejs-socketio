@@ -73,10 +73,7 @@ var VUE_chat = new Vue({
   },
   mounted() {
     var token = getCookie('githubAccessToken');
-    console.log('CRED', credential);
-    if (!token) {
-      this.user = null;
-    } else {
+    if (token) {
       var credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInWithCredential(credential)
         .then(function(result) {
@@ -93,6 +90,8 @@ var VUE_chat = new Vue({
           console.error('ERROR', error);
           self.user = null;
         });
+    } else {
+      this.user = null;
     }
   }
 });
