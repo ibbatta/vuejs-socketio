@@ -20,17 +20,13 @@
                                 <article class="media">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
-                                            <a target="_blank" v-bind:href="'http://github.com/' + message.userId">
-                                              <img v-attr="src: message.userPict" alt="profilePict">
-                                            </a>
+                                            <img :src="message.photoURL" alt="profilePict">
                                         </figure>
                                     </div>
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <a target="_blank" v-bind:href="'http://github.com/' + message.userId">
-                                                  <strong v-text="message.userId"></strong>
-                                                </a>
+                                                <strong v-text="message.displayName"></strong>
                                                 <small v-text="message.time"></small>
                                                 <p v-text="message.text"></p>
                                             </p>
@@ -67,7 +63,7 @@
                     <div id="notification" v-if="visible">
                         <div v-for="(data, index) in datas" v-if="data.show" class="notification is-primary">
                             <button v-on:click="dismiss(index)" class="delete"></button>
-                            <em v-text="data.userId"></em> connected
+                            <em v-text="data.displayName"></em> connected
                         </div>
                     </div>
                 </section>

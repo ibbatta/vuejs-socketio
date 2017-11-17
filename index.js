@@ -8,7 +8,7 @@ var socketIO = require('socket.io')(http);
 var firebaseConfig = require('./config/firebaseConfig');
 
 firebase.initializeApp(firebaseConfig);
-var messagesDbRef = firebase.database().ref('/');
+var messagesDbRef = firebase.database().ref('/chat');
 
 app.set('port', (process.env.PORT || 9000));
 app.use('/npm', express.static('node_modules'));
@@ -26,17 +26,11 @@ socketIO.on('connection', function(socket) {
   loadMessageFromDb(2);
 
   socket.on('user-connected', function(userData) {
-    console.log(`USER CONNECTED: ${userData.login}`);
+    console.log(`USER CONNECTED: ${userData.displayName}`);
   });
 
   socket.on('send-message', function(formData) {
     saveMessageToDb(formData);
-    socketIO.emit('read-message', {
-      msg: formData.message,
-      userId: formData.user.login,
-      userPict: formData.avatar_url,
-      time: new Date().getTime()
-    });
   });
 });
 
@@ -47,8 +41,8 @@ function loadMessageFromDb(limit) {
       Object.keys(messages).forEach(key => {
         socketIO.emit('read-message', {
           msg: messages[key].message,
-          userId: messages[key].user,
-          userPict: messages[key].pict,
+          displayName: messages[key].user,
+          photoURL: messages[key].pict,
           time: messages[key].time
         });
       });
@@ -57,14 +51,19 @@ function loadMessageFromDb(limit) {
 }
 
 function saveMessageToDb(formData) {
-  var user = formData.user.login;
-  var pict = formData.user.avatar_url;
+  var user = formData.user.displayName;
+  var pict = formData.user.photoURL;
   var message = formData.message;
-  firebase.database().ref('/').push({
+  var time = new Date().getTime();
+  firebase.database().ref('/chat').push({
     message,
     user,
     pict,
-    time: new Date().getTime()
+    time
+  });
+  firebase.database().ref(`/users/${user}/messages`).push({
+    message,
+    time
   });
 }
 
