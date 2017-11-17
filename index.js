@@ -19,12 +19,8 @@ app.get('/', function(req, res) {
 });
 
 socketIO.on('connection', function(socket) {
-
-  console.log(`connection ${socket.id}`);
-
   socketIO.emit('clean-chat');
   loadMessageFromDb(2);
-
   socket.on('user-connected', function(userData) {
     console.log(`USER CONNECTED: ${userData.displayName}`);
   });
@@ -55,6 +51,7 @@ function saveMessageToDb(formData) {
   var pict = formData.user.photoURL;
   var message = formData.message;
   var time = new Date().getTime();
+  console.log('FORM', JSON.stringify(formData, null, 4));
   firebase.database().ref('/chat').push({
     message,
     user,

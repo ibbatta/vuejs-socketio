@@ -55,13 +55,13 @@ var VUE_chat = new Vue({
           return firebase.auth().signInWithPopup(provider);
         })
         .then(function(result) {
-          if (result) {
+          if (result && result.user) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
-              displayName: result.displayName,
-              photoURL: result.photoURL
+              displayName: result.user.displayName,
+              photoURL: result.user.photoURL
             }
-            self.user = userData;
+            self.user = result.user;
             socket.emit('user-connected', self.user);
           }
         })
@@ -72,6 +72,7 @@ var VUE_chat = new Vue({
     }
   },
   mounted() {
+    var self = this;
     var token = getCookie('githubAccessToken');
     if (token) {
       var credential = firebase.auth.GithubAuthProvider.credential(token);
