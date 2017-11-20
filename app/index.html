@@ -20,13 +20,17 @@
                                 <article class="media">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
-                                            <img :src="message.pict" alt="profilePict">
+                                            <a target="_blank" :href="'http://github.com/' + message.user">
+                                              <img :src="message.pict" alt="profilePict">
+                                            </a>
                                         </figure>
                                     </div>
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <strong v-text="message.user"></strong>
+                                                <a target="_blank" :href="'http://github.com/' + message.user">
+                                                  <strong v-text="message.user"></strong>
+                                                </a>
                                                 <small v-text="message.time"></small>
                                                 <p v-text="message.message"></p>
                                             </p>

@@ -49,21 +49,20 @@ var VUE_chat = new Vue({
     },
     login: function($event) {
       var self = this;
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(function() {
           var provider = new firebase.auth.GithubAuthProvider();
           provider.addScope('read:user');
           return firebase.auth().signInWithPopup(provider);
         })
         .then(function(result) {
-          console.log('LOG IN', result);
-          if (result && result.user) {
+          if (result && result.user && result.additionalUserInfo) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
-              displayName: result.user.displayName,
+              userName: result.additionalUserInfo.username,
               photoURL: result.user.photoURL
             }
-            self.user = result.user;
+            self.user = userData;
             socket.emit('user-connected', self.user);
           }
         })
@@ -78,13 +77,12 @@ var VUE_chat = new Vue({
     var token = getCookie('githubAccessToken');
     if (token) {
       var credential = firebase.auth.GithubAuthProvider.credential(token);
-      firebase.auth().signInWithCredential(credential)
+      firebase.auth().signInAndRetrieveDataWithCredential(credential)
         .then(function(result) {
-          console.log('TOKEN LOGIN', result);
-          if (result) {
+          if (result && result.user && result.additionalUserInfo) {
             userData = {
-              displayName: result.displayName,
-              photoURL: result.photoURL
+              userName: result.additionalUserInfo.username,
+              photoURL: result.user.photoURL
             }
             self.user = userData;
             socket.emit('user-connected', self.user);
@@ -142,7 +140,6 @@ function addBulkMessage(bulkMessage) {
       time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString()
     });
   });
-  console.log(bulkMessage);
   VUE_chat.messages = bulkMessage;
 }
 

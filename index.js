@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 socketIO.on('connection', function(socket) {
   initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
   socket.on('user-connected', function(userData) {
-    console.log(`USER CONNECTED: ${userData.displayName}`);
+    console.log(`USER CONNECTED: ${userData.userName || userData.displayName}`);
   });
   socket.on('send-message', function(formData) {
     saveMessageToDb(formData);
@@ -48,7 +48,7 @@ function initLoadMessageFromDb(limit) {
 }
 
 function saveMessageToDb(formData) {
-  var user = formData.user.displayName;
+  var user = formData.user.userName;
   var pict = formData.user.photoURL;
   var message = formData.message;
   var time = new Date().getTime();
