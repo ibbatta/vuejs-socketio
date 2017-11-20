@@ -11,7 +11,7 @@ firebase.initializeApp({
   messagingSenderId: '52286000408'
 });
 
-let userData = null;
+let userData = {};
 var socket = new io();
 
 // CHAT
@@ -52,10 +52,11 @@ var VUE_chat = new Vue({
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(function() {
           var provider = new firebase.auth.GithubAuthProvider();
-          provider.addScope('user');
+          provider.addScope('read:user');
           return firebase.auth().signInWithPopup(provider);
         })
         .then(function(result) {
+          console.log('LOG IN', result);
           if (result && result.user) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
@@ -79,6 +80,7 @@ var VUE_chat = new Vue({
       var credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInWithCredential(credential)
         .then(function(result) {
+          console.log('TOKEN LOGIN', result);
           if (result) {
             userData = {
               displayName: result.displayName,
