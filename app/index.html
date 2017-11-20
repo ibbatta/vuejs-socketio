@@ -3,88 +3,82 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Vue.js + Socket.io</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="npm/bulma/css/bulma.css">
     <link rel="stylesheet" href="style.css">
+    <title>Vue.js + Socket.io</title>
 </head>
 
 <body>
-    <div class="columns">
-        <div class="column is-two-thirds">
-            <section class="section">
-                <div id="chat" class="box">
-                    <ul class="messages">
-                        <li v-for="message in messages">
-                            <div class="message">
-                                <article class="media">
-                                    <div class="media-left">
-                                        <figure class="image is-64x64">
-                                            <a target="_blank" :href="'http://github.com/' + message.user">
-                                              <img :src="message.pict" alt="profilePict">
-                                            </a>
-                                        </figure>
-                                    </div>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <a target="_blank" :href="'http://github.com/' + message.user">
-                                                  <strong v-text="message.user"></strong>
-                                                </a>
-                                                <small v-text="message.time"></small>
-                                                <p v-text="message.message"></p>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </li>
-                    </ul>
-                    <a v-if="isLoading" class="button is-primary is-loading">Loading</a>
-                    <div v-if="!isLoading">
-                        <div v-if="!user" class="control is-grouped">
-                            <p class="control">
-                                <button v-on:click="login($event)" class="button is-primary">
-                                  <span class="icon">
-                                    <i class="fa fa-github"></i>
-                                  </span>
-                                  <span>GitHub login</span>
-                              </button>
+
+    <section id="chat" class="section">
+        <div class="container">
+            <div class="card" v-for="message in messages">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <a target="_blank" :href="'http://github.com/' + message.user">
+                                  <img :src="message.pict" alt="Profile Pict">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4 is-size-6" v-if="message.name" v-text="message.name"></p>
+                            <p class="subtitle is-6">
+                                <a target="_blank" :href="'http://github.com/' + message.user" v-text="'@' + message.user"></a>
                             </p>
                         </div>
-                        <div v-if="user">
-                            <form v-on:submit.prevent="clickSubmit(input, $event)">
-                                <small>Press ENTER to submit</small>
-                                <p class="control">
-                                    <textarea v-model="input" v-on:keydown="keySubmit(input, $event)" class="textarea" placeholder="Write message"></textarea>
-                                </p>
-                                <br>
-                                <div class="control is-grouped">
-                                    <p class="control">
-                                        <button v-on:click="clickSubmit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
                     </div>
-            </section>
-            </div>
-            <div class="column">
-                <section class="section">
-                    <div id="notification" v-if="visible">
-                        <div v-for="(data, index) in datas" v-if="data.show" class="notification is-primary">
-                            <button v-on:click="dismiss(index)" class="delete"></button>
-                            <em v-text="data.displayName"></em> connected
-                        </div>
+
+                    <div class="content">
+                        <p v-text="message.message"></p>
+                        <a href="#">#hashtag1</a> <a href="#">#hashtag2</a>
+                        <br>
+                        <time class="is-size-7" v-bind:datetime="message.time" v-text="message.time"></time>
                     </div>
-                </section>
+                </div>
             </div>
+            <hr>
         </div>
-        <script src="npm/moment/min/moment-with-locales.min.js"></script>
-        <script src="npm/socket.io-client/dist/socket.io.js"></script>
-        <script src="npm/firebase/firebase.js"></script>
-        <script src="npm/vue/dist/vue.js"></script>
-        <script src="main.js"></script>
+        <div class="container">
+            <div v-if="isLoading">
+                <a class="button is-primary is-loading is-outlined">Loading</a>
+            </div>
+            <div v-else>
+                <div v-if="user">
+                    <form v-on:submit.prevent="clickSubmit(input, $event)">
+                        <small>Press ENTER to submit</small>
+                        <p class="control">
+                            <textarea v-model="input" v-on:keydown="keySubmit(input, $event)" class="textarea" placeholder="Write message"></textarea>
+                        </p>
+                        <br>
+                        <div class="control is-grouped">
+                            <p class="control">
+                                <button v-on:click="clickSubmit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div v-else class="control is-grouped">
+                    <p class="control">
+                        <button v-on:click="login($event)" class="button is-primary is-outlined">
+                            <span class="icon">
+                              <i class="fa fa-github"></i>
+                            </span>
+                            <span>GitHub login</span>
+                        </button>
+                    </p>
+                </div>
+            </div>
+    </section>
+
+    <script src="npm/moment/min/moment-with-locales.min.js"></script>
+    <script src="npm/socket.io-client/dist/socket.io.js"></script>
+    <script src="npm/firebase/firebase.js"></script>
+    <script src="npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>

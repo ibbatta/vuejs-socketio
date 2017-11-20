@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 socketIO.on('connection', function(socket) {
   initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
   socket.on('user-connected', function(userData) {
-    console.log(`USER CONNECTED: ${userData.userName || userData.displayName}`);
+    console.log(`USER CONNECTED: ${userData.userName} - ${userData.displayName}`);
   });
   socket.on('send-message', function(formData) {
     saveMessageToDb(formData);
@@ -36,9 +36,10 @@ function initLoadMessageFromDb(limit) {
     if (messages) {
       Object.keys(messages).forEach(key => {
         bulkMessage.push({
-          message: messages[key].message,
           user: messages[key].user,
+          name: messages[key].name,
           pict: messages[key].pict,
+          message: messages[key].message,
           time: messages[key].time
         });
       });
@@ -49,13 +50,15 @@ function initLoadMessageFromDb(limit) {
 
 function saveMessageToDb(formData) {
   var user = formData.user.userName;
+  var name = formData.user.displayName;
   var pict = formData.user.photoURL;
   var message = formData.message;
   var time = new Date().getTime();
   firebase.database().ref(settingsConfig.dbChatRef).push({
-    message,
     user,
+    name,
     pict,
+    message,
     time
   });
   firebase.database().ref(`/users/${user}/messages`).push({
@@ -70,9 +73,10 @@ messagesDbRef.orderByChild('time').on('value', function(snapshot) {
   if (messages) {
     Object.keys(messages).forEach(key => {
       bulkMessage.push({
-        message: messages[key].message,
         user: messages[key].user,
+        name: messages[key].name,
         pict: messages[key].pict,
+        message: messages[key].message,
         time: messages[key].time
       });
     });

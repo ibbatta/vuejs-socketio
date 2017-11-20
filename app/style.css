@@ -1,4 +1,3 @@
 .messages li {
-  margin-bottom: 1em;
+  list-style: none;
 }
-

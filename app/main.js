@@ -11,8 +11,8 @@ firebase.initializeApp({
   messagingSenderId: '52286000408'
 });
 
-let userData = {};
 var socket = new io();
+let userData = null;
 
 // CHAT
 var VUE_chat = new Vue({
@@ -56,10 +56,12 @@ var VUE_chat = new Vue({
           return firebase.auth().signInWithPopup(provider);
         })
         .then(function(result) {
+          console.log('RES', result);
           if (result && result.user && result.additionalUserInfo) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
               userName: result.additionalUserInfo.username,
+              displayName: result.user.displayName,
               photoURL: result.user.photoURL
             }
             self.user = userData;
@@ -79,9 +81,11 @@ var VUE_chat = new Vue({
       var credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInAndRetrieveDataWithCredential(credential)
         .then(function(result) {
+          console.log('RESULT 2', result);
           if (result && result.user && result.additionalUserInfo) {
             userData = {
               userName: result.additionalUserInfo.username,
+              displayName: result.user.displayName,
               photoURL: result.user.photoURL
             }
             self.user = userData;
@@ -101,33 +105,8 @@ var VUE_chat = new Vue({
   }
 });
 
-// NOTIFICATION
-var VUE_notification = new Vue({
-  el: '#notification',
-  data: {
-    visible: false,
-    datas: []
-  },
-  methods: {
-    dismiss: function(index) {
-      VUE_notification.datas.splice(index, 1);
-    }
-  }
-});
-
 socket.on('read-message', function(bulkMessage) {
   addBulkMessage(bulkMessage);
-});
-
-socket.on('user-connected', function(userData) {
-  VUE_notification.visible = false;
-  setTimeout(function() {
-    VUE_notification.visible = true;
-    VUE_notification.datas.push({
-      displayName: userData.displayName,
-      show: true
-    });
-  }, 100);
 });
 
 socket.on('new-message', function(bulkMessage) {
