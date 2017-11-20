@@ -88,8 +88,10 @@ The package.json expose these tasks:
 - [x] Update Vue and npm dependencies
 - [ ] Rewrite the repository with Webpack and Vue components
 - [ ] Update Bulma template
+- [ ] Parse markdown for bold, italic and underline texts
 - [x] User connection / authentication (with GitHub)
 - [x] Retrieve user info with a login and show it inside chat (username / profile pict)
+- [ ] Manage users without a github name or missing data
 
 
 ---
