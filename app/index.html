@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <pre v-bind="user"></pre>
     <div class="columns">
         <div class="column is-two-thirds">
             <section class="section">
@@ -21,15 +20,15 @@
                                 <article class="media">
                                     <div class="media-left">
                                         <figure class="image is-64x64">
-                                            <img :src="message.photoURL" alt="profilePict">
+                                            <img :src="message.pict" alt="profilePict">
                                         </figure>
                                     </div>
                                     <div class="media-content">
                                         <div class="content">
                                             <p>
-                                                <strong v-text="message.displayName"></strong>
+                                                <strong v-text="message.user"></strong>
                                                 <small v-text="message.time"></small>
-                                                <p v-text="message.text"></p>
+                                                <p v-text="message.message"></p>
                                             </p>
                                         </div>
                                     </div>
@@ -50,15 +49,15 @@
                             </p>
                         </div>
                         <div v-if="user">
-                            <form v-on:submit.prevent="onSubmit">
+                            <form v-on:submit.prevent="clickSubmit(input, $event)">
                                 <small>Press ENTER to submit</small>
                                 <p class="control">
-                                    <textarea v-model="input" v-on:keydown="submit(input, $event)" class="textarea" placeholder="Write message"></textarea>
+                                    <textarea v-model="input" v-on:keydown="keySubmit(input, $event)" class="textarea" placeholder="Write message"></textarea>
                                 </p>
                                 <br>
                                 <div class="control is-grouped">
                                     <p class="control">
-                                        <button v-on:click="submit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
+                                        <button v-on:click="clickSubmit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
                                     </p>
                                 </div>
                             </form>
@@ -77,6 +76,7 @@
                 </section>
             </div>
         </div>
+        <script src="npm/moment/min/moment-with-locales.min.js"></script>
         <script src="npm/socket.io-client/dist/socket.io.js"></script>
         <script src="npm/firebase/firebase.js"></script>
         <script src="npm/vue/dist/vue.js"></script>

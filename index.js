@@ -20,29 +20,29 @@ app.get('/', function(req, res) {
 });
 
 socketIO.on('connection', function(socket) {
-  socketIO.emit('clean-chat');
-  loadMessageFromDb(settingsConfig.numberMessageLoaded);
+  initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
   socket.on('user-connected', function(userData) {
     console.log(`USER CONNECTED: ${userData.displayName}`);
   });
-
   socket.on('send-message', function(formData) {
     saveMessageToDb(formData);
   });
 });
 
-function loadMessageFromDb(limit) {
+function initLoadMessageFromDb(limit) {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
     var messages = snapshot.val();
+    var bulkMessage = [];
     if (messages) {
       Object.keys(messages).forEach(key => {
-        socketIO.emit('read-message', {
-          msg: messages[key].message,
-          displayName: messages[key].user,
-          photoURL: messages[key].pict,
+        bulkMessage.push({
+          message: messages[key].message,
+          user: messages[key].user,
+          pict: messages[key].pict,
           time: messages[key].time
         });
       });
+      socketIO.emit('read-message', bulkMessage);
     }
   });
 }
@@ -63,6 +63,22 @@ function saveMessageToDb(formData) {
     time
   });
 }
+
+messagesDbRef.orderByChild('time').on('value', function(snapshot) {
+  var messages = snapshot.val();
+  var bulkMessage = [];
+  if (messages) {
+    Object.keys(messages).forEach(key => {
+      bulkMessage.push({
+        message: messages[key].message,
+        user: messages[key].user,
+        pict: messages[key].pict,
+        time: messages[key].time
+      });
+    });
+    socketIO.emit('new-message', bulkMessage);
+  }
+});
 
 http.listen(app.get('port'), function() {
   console.log(`Node app is running on port: ${app.get('port')}`);

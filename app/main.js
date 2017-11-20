@@ -25,26 +25,26 @@ var VUE_chat = new Vue({
     user: null
   },
   methods: {
-    onSubmit: function($event) {
-      $event.preventDefault();
-      this.input = null;
-    },
-    submit: function(message, $event) {
+    keySubmit: function(message, $event) {
       if ($event.keyCode === 13 && !$event.shiftKey) {
         $event.preventDefault();
         if (this.user && message) {
-          this.messages.push({
-            text: message,
-            displayName: this.user.displayName,
-            photoURL: this.user.photoURL,
-            time: formatTime(new Date())
-          });
           socket.emit('send-message', {
             user: this.user,
             message: message
           });
           this.input = null;
         }
+      }
+    },
+    clickSubmit: function(message, $event) {
+      $event.preventDefault();
+      if (this.user && message) {
+        socket.emit('send-message', {
+          user: this.user,
+          message: message
+        });
+        this.input = null;
       }
     },
     login: function($event) {
@@ -115,17 +115,8 @@ var VUE_notification = new Vue({
   }
 });
 
-socket.on('clean-chat', function() {
-  VUE_chat.messages = [];
-});
-
-socket.on('read-message', function(data) {
-  VUE_chat.messages.push({
-    text: data.msg,
-    displayName: data.displayName,
-    photoURL: data.photoURL,
-    time: formatTime(new Date(data.time))
-  });
+socket.on('read-message', function(bulkMessage) {
+  addBulkMessage(bulkMessage);
 });
 
 socket.on('user-connected', function(userData) {
@@ -136,11 +127,22 @@ socket.on('user-connected', function(userData) {
       displayName: userData.displayName,
       show: true
     });
-  }, 2000);
-  setTimeout(function() {
-    VUE_notification.datas = [];
-  }, 2000);
+  }, 100);
 });
+
+socket.on('new-message', function(bulkMessage) {
+  addBulkMessage(bulkMessage);
+});
+
+function addBulkMessage(bulkMessage) {
+  bulkMessage.forEach(function(value, key) {
+    Object.assign(bulkMessage[key], {
+      time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString()
+    });
+  });
+  console.log(bulkMessage);
+  VUE_chat.messages = bulkMessage;
+}
 
 function getCookie(cname) {
   var name = cname + '=';
