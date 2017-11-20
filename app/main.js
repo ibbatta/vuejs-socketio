@@ -18,6 +18,7 @@ var socket = new io();
 var VUE_chat = new Vue({
   el: '#chat',
   data: {
+    isLoading: true,
     messages: [],
     form: '',
     input: '',
@@ -85,14 +86,17 @@ var VUE_chat = new Vue({
             }
             self.user = userData;
             socket.emit('user-connected', self.user);
+            self.isLoading = false;
           }
         })
         .catch(function(error) {
           console.error('ERROR', error);
           self.user = null;
+          self.isLoading = false;
         });
     } else {
       this.user = null;
+      self.isLoading = false;
     }
   }
 });

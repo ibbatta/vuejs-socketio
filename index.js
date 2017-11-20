@@ -6,11 +6,12 @@ var http = require('http').Server(app);
 var firebase = require('firebase');
 var socketIO = require('socket.io')(http);
 var firebaseConfig = require('./config/firebaseConfig');
+var settingsConfig = require('./config/settingsConfig');
 
 firebase.initializeApp(firebaseConfig);
-var messagesDbRef = firebase.database().ref('/chat');
+var messagesDbRef = firebase.database().ref(settingsConfig.dbChatRef);
 
-app.set('port', (process.env.PORT || 9000));
+app.set('port', settingsConfig.serverPort);
 app.use('/npm', express.static('node_modules'));
 app.use(express.static('app'));
 
@@ -20,7 +21,7 @@ app.get('/', function(req, res) {
 
 socketIO.on('connection', function(socket) {
   socketIO.emit('clean-chat');
-  loadMessageFromDb(2);
+  loadMessageFromDb(settingsConfig.numberMessageLoaded);
   socket.on('user-connected', function(userData) {
     console.log(`USER CONNECTED: ${userData.displayName}`);
   });
@@ -51,8 +52,7 @@ function saveMessageToDb(formData) {
   var pict = formData.user.photoURL;
   var message = formData.message;
   var time = new Date().getTime();
-  console.log('FORM', JSON.stringify(formData, null, 4));
-  firebase.database().ref('/chat').push({
+  firebase.database().ref(settingsConfig.dbChatRef).push({
     message,
     user,
     pict,
