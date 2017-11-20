@@ -25,10 +25,10 @@
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4 is-size-6" v-if="message.name" v-text="message.name"></p>
-                            <p class="subtitle is-6">
+                            <p class="title is-4">
                                 <a target="_blank" :href="'http://github.com/' + message.user" v-text="'@' + message.user"></a>
                             </p>
+                            <p class="subtitle is-6" v-text="message.name"></p>
                         </div>
                     </div>
 

@@ -91,7 +91,7 @@ The package.json expose these tasks:
 - [ ] Parse markdown for bold, italic and underline texts
 - [x] User connection / authentication (with GitHub)
 - [x] Retrieve user info with a login and show it inside chat (username / profile pict)
-- [ ] Manage users without a github name or missing data
+- [x] Manage users without a github name or missing data
 
 
 ---
