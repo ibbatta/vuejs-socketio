@@ -1,3 +1,7 @@
+.section {
+  padding: 1rem;
+}
+
 .messages li {
   list-style: none;
 }
