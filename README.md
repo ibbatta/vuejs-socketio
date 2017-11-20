@@ -22,7 +22,6 @@
 - [x] Socket.io
 - [x] Firebase DB
 
-
 ---
 
 
@@ -31,6 +30,13 @@
 | <img src="./repo_readme_assets/browsers/browser-ie.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-firefox.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-chrome.svg" height="35"> | <img src="./repo_readme_assets/browsers/browser-safari.svg" height="35"> |
 | --- | --- | --- | --- |
 | 9+ | latest | latest | latest |
+
+---
+
+
+## __Demo__
+
+[Live demo](https://testwebsocketvuejs.herokuapp.com/)
 
 ---
 
@@ -53,6 +59,7 @@ Then:
 ## __Installation__
 
 - Be sure to have a [Firebase](https://www.firebase.com/) account
+- Set up the Firebase auth with GitHub
 - Create an `.env` file and import your Firebase credentials _(like the example below)_
 ```javascript
 APIKEY=FIREBASE_API_KEY
