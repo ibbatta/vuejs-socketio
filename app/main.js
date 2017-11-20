@@ -49,7 +49,7 @@ var VUE_chat = new Vue({
     },
     login: function($event) {
       var self = this;
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(function() {
           var provider = new firebase.auth.GithubAuthProvider();
           provider.addScope('read:user');
