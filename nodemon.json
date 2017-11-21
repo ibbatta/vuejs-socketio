@@ -1,0 +1,3 @@
+{
+  "ignore": ["./app", "./node_modules"]
+}
