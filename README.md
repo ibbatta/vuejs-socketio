@@ -21,6 +21,7 @@
 - [x] Bulma css framework
 - [x] Socket.io
 - [x] Firebase DB
+- [x] Login with GitHub (to retrieve user information and profile pict)
 
 ---
 
@@ -85,13 +86,12 @@ The package.json expose these tasks:
 
 ## __Todo__
 
-- [x] Update Vue and npm dependencies
 - [ ] Rewrite the repository with Webpack and Vue components
-- [ ] Update Bulma template or switch to Material Design
-- [ ] Parse markdown for bold, italic and underline texts
-- [x] User connection / authentication (with GitHub)
-- [x] Retrieve user info with a login and show it inside chat (username / profile pict)
-- [x] Manage users without a github name or missing data
+- [ ] Parse markdown for bold, italic and underline texts (???)
+- [ ] Manage user connection notification
+- [ ] Manage new chat notification
+- [ ] Develop hashtag system (???)
+- [ ] Develop search by user / hashtag
 
 
 ---

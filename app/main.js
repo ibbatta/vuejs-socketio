@@ -13,6 +13,7 @@ firebase.initializeApp({
 
 var socket = new io();
 let userData = null;
+var documentTitleBakcup = document.title;
 
 // CHAT
 var VUE_chat = new Vue({
@@ -56,7 +57,6 @@ var VUE_chat = new Vue({
           return firebase.auth().signInWithPopup(provider);
         })
         .then(function(result) {
-          console.log('RES', result);
           if (result && result.user && result.additionalUserInfo) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
@@ -81,7 +81,6 @@ var VUE_chat = new Vue({
       var credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInAndRetrieveDataWithCredential(credential)
         .then(function(result) {
-          console.log('RESULT 2', result);
           if (result && result.user && result.additionalUserInfo) {
             userData = {
               userName: result.additionalUserInfo.username,
@@ -111,6 +110,10 @@ socket.on('read-message', function(bulkMessage) {
 
 socket.on('new-message', function(bulkMessage) {
   addBulkMessage(bulkMessage);
+  document.title += ' (+1)';
+  setTimeout(function() {
+    document.title = documentTitleBakcup;
+  }, 3000);
 });
 
 function addBulkMessage(bulkMessage) {

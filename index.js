@@ -13,6 +13,7 @@ var messagesDbRef = firebase.database().ref(settingsConfig.dbChatRef);
 
 app.set('port', settingsConfig.serverPort);
 app.use('/npm', express.static('node_modules'));
+app.use('/root', express.static('./'));
 app.use(express.static('app'));
 
 app.get('/', function(req, res) {
