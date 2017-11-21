@@ -1,5 +1,6 @@
-console.log('hello world');
+import style from './index.scss';
 
+console.log(style);
 
 /* firebase.initializeApp({
   apiKey: 'AIzaSyD23ChWSD1Ua4oDxFnodt-C_BoxvsQ0D9U',

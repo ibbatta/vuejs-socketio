@@ -1,12 +1,15 @@
 module.exports = {
   prod: {
     assetsPublicPath: '/',
-    assetsNodeModules: 'node_modules',
+    assetsNodeModules: '/node_modules',
+    assetsFavicon: '/favicons',
+    outputPath: '/dist',
   },
   dev: {
     assetsPublicPath: '/',
-    assetsNodeModules: 'node_modules',
-    port: process.env.PORT || 9000,
+    assetsNodeModules: '/node_modules',
+    assetsFavicon: '/favicons',
+    outputPath: '/dist',
   },
   monitor: {
     target: './.monitor/stats.json',

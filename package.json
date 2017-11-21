@@ -31,8 +31,8 @@
     "not ie <= 8"
   ],
   "scripts": {
-    "start": "NODE_ENV=development nodemon index.js;",
-    "prod": "NODE_ENV=production node index.js;",
+    "start": "NODE_ENV=development nodemon server.js;",
+    "prod": "NODE_ENV=production node server.js;",
     "test": "echo \" ERROR: no test specified \" && exit 1;"
   },
   "dependencies": {
@@ -44,9 +44,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "3.0.2",
     "firebase": "^4.6.2",
-    "glob": "^7.1.2",
     "http-server": "^0.10.0",
-    "lodash": "^4.17.4",
     "moment": "^2.19.2",
     "purifycss-webpack": "^0.7.0",
     "socket.io": "^2.0.4",
@@ -59,7 +57,7 @@
     "webpack-monitor": "^1.0.13"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.22.0",
@@ -86,8 +84,9 @@
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.1",
     "postcss-cssnext": "^3.0.2",
-    "postcss-html": "^0.11.0",
-    "postcss-loader": "^2.0.6",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-url": "^7.2.1",
     "purify-css": "^1.2.5",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
