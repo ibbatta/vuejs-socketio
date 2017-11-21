@@ -1,90 +1,49 @@
-'use strict';
+const CONSTANTS = require('./config/constants.config');
+const chalk = require('chalk');
+const path = require('path');
+const serverPathConfig = require('./config/server.config');
+const express = require('express');
+const webpack = require('webpack');
+const webpackConfig = process.env.NODE_ENV === CONSTANTS.production ? require('./webpack.prod.extension') : require('./webpack.dev.extension');
 
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var firebase = require('firebase');
-var socketIO = require('socket.io')(http);
-var firebaseConfig = require('./config/firebaseConfig');
-var settingsConfig = require('./config/settingsConfig');
+const compiler = webpack(webpackConfig);
+const app = express();
 
-firebase.initializeApp(firebaseConfig);
-var messagesDbRef = firebase.database().ref(settingsConfig.dbChatRef);
+const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  historyApiFallback: true,
+  hot: true,
+  inline: true,
+  noInfo: true,
+  quiet: true,
+});
 
-app.set('port', settingsConfig.serverPort);
-app.use('/npm', express.static('node_modules'));
-app.use('/root', express.static('./'));
+const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {});
+
+app.use(webpackDevMiddleware);
+app.use(webpackHotMiddleware);
+
+// serve static files
+app.use(serverPathConfig.dev.assetsPublicPath, express.static(path.resolve(__dirname, '/app')));
+app.use(path.join(serverPathConfig.dev.assetsPublicPath, serverPathConfig.dev.assetsSubDirectory), express.static(path.resolve(__dirname, '/app/assets')));
+app.use(path.join(serverPathConfig.dev.assetsPublicPath, serverPathConfig.dev.assetsNodeModules), express.static('node_modules'));
+app.use(serverPathConfig.dev.assetsPublicPath, express.static('favicons'));
 app.use(express.static('app'));
-
 app.get('/', function(req, res) {
   res.sendfile('./app/index.html');
 });
 
-socketIO.on('connection', function(socket) {
-  initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
-  socket.on('user-connected', function(userData) {
-    console.log(`USER CONNECTED: ${userData.userName} - ${userData.displayName}`);
-  });
-  socket.on('send-message', function(formData) {
-    saveMessageToDb(formData);
-  });
-});
+// default port where dev server listens for incoming traffic
+const serverPort = serverPathConfig.dev.port;
+console.log(chalk.bgGreen(chalk.black('###   Starting server...   ###'))); // eslint-disable-line
 
-function initLoadMessageFromDb(limit) {
-  messagesDbRef.orderByChild('time').limitToLast(limit).once('value', function(snapshot) {
-    var messages = snapshot.val();
-    var bulkMessage = [];
-    if (messages) {
-      Object.keys(messages).forEach(key => {
-        bulkMessage.push({
-          user: messages[key].user,
-          name: messages[key].name,
-          pict: messages[key].pict,
-          message: messages[key].message,
-          time: messages[key].time
-        });
-      });
-      socketIO.emit('read-message', bulkMessage);
-    }
-  });
-}
 
-function saveMessageToDb(formData) {
-  var user = formData.user.userName;
-  var name = formData.user.displayName;
-  var pict = formData.user.photoURL;
-  var message = formData.message;
-  var time = new Date().getTime();
-  firebase.database().ref(settingsConfig.dbChatRef).push({
-    user,
-    name,
-    pict,
-    message,
-    time
-  });
-  firebase.database().ref(`/users/${user}/messages`).push({
-    message,
-    time
-  });
-}
-
-messagesDbRef.orderByChild('time').on('value', function(snapshot) {
-  var messages = snapshot.val();
-  var bulkMessage = [];
-  if (messages) {
-    Object.keys(messages).forEach(key => {
-      bulkMessage.push({
-        user: messages[key].user,
-        name: messages[key].name,
-        pict: messages[key].pict,
-        message: messages[key].message,
-        time: messages[key].time
-      });
-    });
-    socketIO.emit('new-message', bulkMessage);
+webpackDevMiddleware.waitUntilValid(() => {
+  const uri = `http://localhost: ${serverPort}`;
+  if (process.env.NODE_ENV === CONSTANTS.development) {
+    console.clear(); // eslint-disable-line
   }
+  console.log(chalk.red(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgRed(chalk.white(uri))}`)); // eslint-disable-line
 });
 
-http.listen(app.get('port'), function() {
-  console.log(`Node app is running on port: ${app.get('port')}`);
-});
+app.listen(serverPort);

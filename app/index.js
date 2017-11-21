@@ -1,22 +1,18 @@
-'use strict';
-
-let formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
-
 firebase.initializeApp({
   apiKey: 'AIzaSyD23ChWSD1Ua4oDxFnodt-C_BoxvsQ0D9U',
   authDomain: 'vue-db-socket.firebaseapp.com',
   databaseURL: 'https://vue-db-socket.firebaseio.com',
   projectId: 'vue-db-socket',
   storageBucket: 'vue-db-socket.appspot.com',
-  messagingSenderId: '52286000408'
+  messagingSenderId: '52286000408',
 });
 
-var socket = new io();
+const socket = new io();
 let userData = null;
-var documentTitleBakcup = document.title;
+const documentTitleBakcup = document.title;
 
 // CHAT
-var VUE_chat = new Vue({
+const VueChat = new Vue({
   el: '#chat',
   data: {
     isLoading: true,
@@ -75,10 +71,10 @@ var VUE_chat = new Vue({
     }
   },
   mounted() {
-    var self = this;
-    var token = getCookie('githubAccessToken');
+    const self = this;
+    const token = getCookie('githubAccessToken');
     if (token) {
-      var credential = firebase.auth.GithubAuthProvider.credential(token);
+      const credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInAndRetrieveDataWithCredential(credential)
         .then(function(result) {
           if (result && result.user && result.additionalUserInfo) {
@@ -113,7 +109,7 @@ socket.on('new-message', function(bulkMessage) {
   document.title += ' (+1)';
   setTimeout(function() {
     document.title = documentTitleBakcup;
-  }, 3000);
+  }, 5000);
 });
 
 function addBulkMessage(bulkMessage) {
@@ -122,7 +118,7 @@ function addBulkMessage(bulkMessage) {
       time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString()
     });
   });
-  VUE_chat.messages = bulkMessage;
+  VueChat.messages = bulkMessage;
 }
 
 function getCookie(cname) {
@@ -139,4 +135,6 @@ function getCookie(cname) {
     }
   }
   return '';
+
+  const formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
 }
