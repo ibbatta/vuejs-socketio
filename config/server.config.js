@@ -1,13 +1,15 @@
 module.exports = {
   prod: {
     assetsPublicPath: '/',
-    assetsSubDirectory: 'static',
     assetsNodeModules: 'node_modules',
   },
   dev: {
     assetsPublicPath: '/',
-    assetsSubDirectory: 'assets',
     assetsNodeModules: 'node_modules',
     port: process.env.PORT || 9000,
+  },
+  monitor: {
+    target: './.monitor/stats.json',
+    port: process.env.MONITOR_PORT || 9001,
   },
 };

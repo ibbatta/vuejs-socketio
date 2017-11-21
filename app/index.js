@@ -1,4 +1,7 @@
-firebase.initializeApp({
+console.log('hello world');
+
+
+/* firebase.initializeApp({
   apiKey: 'AIzaSyD23ChWSD1Ua4oDxFnodt-C_BoxvsQ0D9U',
   authDomain: 'vue-db-socket.firebaseapp.com',
   databaseURL: 'https://vue-db-socket.firebaseio.com',
@@ -138,3 +141,4 @@ function getCookie(cname) {
 
   const formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
 }
+ */

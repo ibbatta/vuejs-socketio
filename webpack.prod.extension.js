@@ -10,7 +10,7 @@ const WebpackMonitor = require('webpack-monitor');
 const WebpackPlugin = require('webpack');
 
 const mainConfig = require('./webpack.config');
-const serverConfig = require('../config/server.config');
+const serverConfig = require('./config/server.config');
 
 const minifyOpts = {
   removeConsole: true,
@@ -24,7 +24,7 @@ const pluginOpts = {
 module.exports = merge(mainConfig, {
   devtool: 'none',
   entry: {
-    main: ['./'],
+    main: ['./index.js'],
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
@@ -43,7 +43,7 @@ module.exports = merge(mainConfig, {
         rejected: false,
         minify: true,
       },
-      paths: glob.sync(path.join(__dirname, '../app/src/*.html')),
+      paths: glob.sync(path.join(__dirname, 'app/*.html')),
     }),
     new WebpackMonitor({
       capture: true,
@@ -51,7 +51,7 @@ module.exports = merge(mainConfig, {
       launch: true,
       port: serverConfig.monitor.port,
       purifyOptions: {
-        output: path.join(__dirname, '../dist'),
+        output: path.join(__dirname, 'dist'),
       },
     }),
   ],

@@ -19,12 +19,12 @@ const postcssLoader = {
   },
 };
 
-process.noDeprecation = true;
+// process.noDeprecation = true;
 
 module.exports = {
   context: path.resolve(__dirname, '/app'),
   output: {
-    path: serverPathConfig.prod.assetsRoot,
+    path: serverPathConfig.prod.assetsPublicPath,
     publicPath: (process.env.NODE_ENV === CONSTANTS.production ? serverPathConfig.prod.assetsPublicPath : serverPathConfig.dev.assetsPublicPath),
     filename: '[name].bundle.js',
   },
@@ -46,7 +46,7 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'stage-2'],
+          presets: ['env'],
           plugins: ['transform-runtime'],
         },
       }],

@@ -36,9 +36,13 @@
     "test": "echo \" ERROR: no test specified \" && exit 1;"
   },
   "dependencies": {
+    "babel-minify-webpack-plugin": "^0.2.0",
     "bulma": "^0.6.1",
+    "chalk": "^2.1.0",
+    "clean-webpack-plugin": "^0.1.16",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "3.0.2",
     "firebase": "^4.6.2",
     "glob": "^7.1.2",
     "http-server": "^0.10.0",
@@ -47,19 +51,21 @@
     "purifycss-webpack": "^0.7.0",
     "socket.io": "^2.0.4",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
-    "vue": "^2.5.7"
+    "vue": "^2.5.7",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-hot-middleware": "^2.16.1",
+    "webpack-merge": "^4.1.1",
+    "webpack-monitor": "^1.0.13"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
-    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-preset-env": "^1.2.1",
     "babel-register": "^6.22.0",
     "babel-runtime": "^6.26.0",
-    "chalk": "^2.1.0",
-    "clean-webpack-plugin": "^0.1.16",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.7",
     "es6-promise": "^4.1.1",
@@ -73,7 +79,6 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "eventsource-polyfill": "^0.9.6",
-    "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "^1.1.5",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.28.0",
@@ -89,11 +94,6 @@
     "vue-hot-reload-api": "^2.1.1",
     "vue-loader": "^13.5.0",
     "vue-style-loader": "^3.0.3",
-    "webpack": "^3.8.1",
-    "webpack-dev-middleware": "^1.10.0",
-    "webpack-dev-server": "^2.8.2",
-    "webpack-hot-middleware": "^2.16.1",
-    "webpack-merge": "^4.1.1",
-    "webpack-monitor": "^1.0.13"
+    "webpack-dev-server": "^2.8.2"
   }
 }
