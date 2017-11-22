@@ -20,13 +20,13 @@ const minifyOpts = {
 module.exports = merge(mainConfig, {
   devtool: 'none',
   entry: {
-    main: ['./index.js'],
+    main: ['./'],
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
     new MinifyPlugin(minifyOpts, {}),
     new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
-    new CleanWebpackPlugin(['dist', '.monitor']),
+    new CleanWebpackPlugin(['dist']),
     new UglifyJSPlugin(),
     new PurifyCSSPlugin({
       styleExtensions: ['.css', '.scss'],

@@ -6,7 +6,7 @@ const mainConfig = require('./webpack.config');
 module.exports = merge(mainConfig, {
   devtool: 'source-map',
   entry: {
-    main: ['webpack-hot-middleware/client?reload=true', './index.js'],
+    main: ['webpack-hot-middleware/client?reload=true', './'],
   },
   plugins: [
     new WebpackPlugin.HotModuleReplacementPlugin(),
