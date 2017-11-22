@@ -1,6 +1,6 @@
 # __PERSONAL VUE.JS + SOCKET.IO CHAT PROJECT__
 
-[![bitHound Overall Score](https://www.bithound.io/github/ibbatta/vuejs-socketio/badges/score.svg)](https://www.bithound.io/github/ibbatta/vuejs-socketio)
+[![bitHound Code](https://www.bithound.io/github/ibbatta/vuejs-socketio/badges/code.svg)](https://www.bithound.io/github/ibbatta/vuejs-socketio)
 
 
 >This repo contains a personal javascript chat to learn and test something about Vue.js, Socket.io and Firebase (+ Bulma css framework)
