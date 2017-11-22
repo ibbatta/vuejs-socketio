@@ -12,19 +12,18 @@ const WebpackPlugin = require('webpack');
 const mainConfig = require('./webpack.config');
 // const serverConfig = require('./config/server.config');
 
-const minifyOpts = {
-  removeConsole: true,
-  removeDebugger: true,
-};
-
 module.exports = merge(mainConfig, {
+  context: path.resolve(__dirname, 'app'),
   devtool: 'none',
   entry: {
     main: ['./index.js'],
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
-    new MinifyPlugin(minifyOpts, {}),
+    new MinifyPlugin({
+      removeConsole: true,
+      removeDebugger: true,
+    }, {}),
     new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
     new CleanWebpackPlugin(['dist']),
     new UglifyJSPlugin(),
