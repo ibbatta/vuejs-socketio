@@ -8,7 +8,7 @@ const serverPathConfig = require('./config/server.config');
 // process.noDeprecation = true;
 
 module.exports = {
-  context: path.join(__dirname, 'app'),
+  context: path.resolve(__dirname, 'app'),
   output: {
     path: path.join(__dirname, serverPathConfig.prod.outputPath),
     publicPath: process.env.NODE_ENV === CONSTANTS.production ? serverPathConfig.prod.assetsPublicPath : serverPathConfig.dev.assetsPublicPath,
@@ -16,6 +16,17 @@ module.exports = {
   },
   module: {
     rules: [{
+      test: /\.(html|htm|xhtml|ejs|hbs)$/,
+      use: [{
+        loader: 'html-loader',
+        options: {
+          minimize: true,
+          removeComments: true,
+          collapseWhitespace: true,
+        },
+      }],
+    },
+    {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules|bower_components)/,
       use: [{
