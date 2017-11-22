@@ -8,6 +8,7 @@ const serverPathConfig = require('./config/server.config');
 // process.noDeprecation = true;
 
 module.exports = {
+  context: path.resolve(__dirname, 'app'),
   output: {
     path: path.join(__dirname, serverPathConfig.prod.outputPath),
     publicPath: process.env.NODE_ENV === CONSTANTS.production ? serverPathConfig.prod.assetsPublicPath : serverPathConfig.dev.assetsPublicPath,
@@ -98,7 +99,7 @@ module.exports = {
     }),
     new WebpackPlugin.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV === CONSTANTS.production ? CONSTANTS.production : CONSTANTS.development),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         APIKEY: JSON.stringify(process.env.APIKEY),
         AUTHDOMAIN: JSON.stringify(process.env.AUTHDOMAIN),
         DATABASEURL: JSON.stringify(process.env.DATABASEURL),
