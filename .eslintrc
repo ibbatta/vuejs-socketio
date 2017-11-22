@@ -6,9 +6,10 @@
     "node": true
   },
   "globals": {
-    "document": true
+    "document": true,
+    "io": true
   },
   "rules": {
-    "new-cap": "error"
+    "new-cap": "warn"
   }
 }

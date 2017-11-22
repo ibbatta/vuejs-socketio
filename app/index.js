@@ -1,6 +1,5 @@
 import './index.scss';
 
-const socket = require('socket.io')();
 const Vue = require('vue');
 const Moment = require('moment');
 const firebase = require('firebase');
@@ -8,6 +7,7 @@ const firebaseConfig = require('./../config/firebase.config');
 
 firebase.initializeApp(firebaseConfig);
 
+const socket = new io();
 let userData = null;
 
 const getCookie = (cname) => {
