@@ -30,13 +30,7 @@
 <body>
     <section id="chat" class="section">
         <div class="container">
-            <div class="card" v-if="messages.length <= 0">
-                <div class="card-content">
-                    <div class="content">
-                        <p>No messages</p>
-                    </div>
-                </div>
-            </div>
+            <empty-chat v-if="messages.length <= 0"></empty-chat>
             <div class="card" v-else v-for="message in messages">
                 <div class="card-content">
                     <div class="media">

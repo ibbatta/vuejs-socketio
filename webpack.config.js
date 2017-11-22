@@ -84,7 +84,7 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.js',
     },
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.js', '.jsx', '.scss', '.vue'],
   },
   node: {
     fs: 'empty',

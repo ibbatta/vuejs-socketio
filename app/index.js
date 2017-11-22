@@ -1,4 +1,5 @@
 import './index.scss';
+import EmptyChat from './components/EmptyChat/EmptyChat';
 
 const Vue = require('vue');
 const Moment = require('moment');
@@ -35,6 +36,9 @@ const VueChat = new Vue({
     form: '',
     input: '',
     user: null,
+  },
+  components: {
+    'empty-chat': EmptyChat,
   },
   methods: {
     keySubmit: (message, $event) => {
