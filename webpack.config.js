@@ -17,6 +17,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.(html|htm|xhtml|ejs|hbs)$/,
+      exclude: /(node_modules|bower_components)/,
       use: [{
         loader: 'html-loader',
         options: {
@@ -44,7 +45,7 @@ module.exports = {
     },
     {
       test: /\.(css)$/,
-      exclude: /node_modules/,
+      exclude: /(node_modules|bower_components)/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -54,7 +55,7 @@ module.exports = {
       }),
     }, {
       test: /\.(sass|scss)$/,
-      exclude: /node_modules/,
+      exclude: /(node_modules|bower_components)/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -66,11 +67,12 @@ module.exports = {
     },
     {
       test: /\.(json)$/,
+      exclude: /(node_modules|bower_components)/,
       loader: 'json-loader',
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      exclude: /node_modules/,
+      exclude: /(node_modules|bower_components)/,
       loader: 'file-loader',
       options: {
         name: '[name].[ext]',

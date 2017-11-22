@@ -98,6 +98,7 @@ The package.json expose these tasks:
 - [ ] Parse markdown for bold, italic and underline texts (???)
 - [ ] Manage user connection notification
 - [ ] Manage new chat notification
+- [ ] Manage message delete watcher
 - [ ] Develop hashtag system (???)
 - [ ] Develop search by user / hashtag
 

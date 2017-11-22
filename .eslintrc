@@ -6,13 +6,9 @@
     "node": true
   },
   "globals": {
-    "document": true,
-    "firebase": true,
-    "io": true,
-    "Vue": true,
-    "moment": true
+    "document": true
   },
   "rules": {
-    "new-cap": "warn"
+    "new-cap": "error"
   }
 }

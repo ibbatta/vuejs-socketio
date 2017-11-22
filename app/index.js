@@ -1,11 +1,13 @@
 import './index.scss';
 
+const socket = require('socket.io')();
+const Vue = require('vue');
+const Moment = require('moment');
 const firebase = require('firebase');
 const firebaseConfig = require('./../config/firebase.config');
 
 firebase.initializeApp(firebaseConfig);
 
-const socket = new io(); // eslint-disable-line
 let userData = null;
 
 const getCookie = (cname) => {
@@ -77,7 +79,7 @@ const VueChat = new Vue({
           }
         })
         .catch((error) => {
-          console.error('ERROR', error);
+          console.error('ERROR', error); // eslint-disable-line
           VueChat.user = null;
         });
     },
@@ -100,7 +102,7 @@ const VueChat = new Vue({
           }
         })
         .catch((error) => {
-          console.error('ERROR', error);
+          console.error('ERROR', error); // eslint-disable-line
           VueChat.user = null;
           VueChat.isLoading = false;
         });
@@ -114,7 +116,7 @@ const VueChat = new Vue({
 const addBulkMessage = (bulkMessage) => {
   bulkMessage.forEach((value, key) => {
     Object.assign(bulkMessage[key], {
-      time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString(),
+      time: new Moment(value.time).format('DD/MM/YYYY - HH:mm').toString(),
     });
   });
   VueChat.messages = bulkMessage;
