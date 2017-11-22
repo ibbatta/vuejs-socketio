@@ -1,7 +1,0 @@
-{
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://git.heroku.com/testwebsocketvuejs",
-  "keywords": ["node", "express", "vue", "chat"],
-  "image": "heroku/nodejs"
-}
