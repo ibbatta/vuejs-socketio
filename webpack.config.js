@@ -8,7 +8,7 @@ const serverPathConfig = require('./config/server.config');
 // process.noDeprecation = true;
 
 module.exports = {
-  context: path.resolve(__dirname),
+  context: path.resolve(__dirname, 'app'),
   output: {
     path: path.join(__dirname, serverPathConfig.prod.outputPath),
     publicPath: process.env.NODE_ENV === CONSTANTS.production ? serverPathConfig.prod.assetsPublicPath : serverPathConfig.dev.assetsPublicPath,

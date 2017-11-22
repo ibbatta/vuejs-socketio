@@ -13,9 +13,10 @@ const mainConfig = require('./webpack.config');
 // const serverConfig = require('./config/server.config');
 
 module.exports = merge(mainConfig, {
+  context: path.resolve(__dirname),
   devtool: 'none',
   entry: {
-    main: ['./index.js'],
+    main: ['./app/index.js'],
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
