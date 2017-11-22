@@ -11,5 +11,8 @@
     "io": true,
     "Vue": true,
     "moment": true
+  },
+  "rules": {
+    "new-cap": "warn"
   }
 }

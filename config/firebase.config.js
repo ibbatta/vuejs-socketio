@@ -1,6 +1,9 @@
-'use strict';
+const dotenv = require('dotenv');
+const CONSTANTS = require('./constants.config');
 
-require('dotenv').config();
+if (process.env.NODE_ENV !== CONSTANTS.production) {
+  dotenv.load();
+}
 
 module.exports = {
   apiKey: process.env.APIKEY,
@@ -8,5 +11,5 @@ module.exports = {
   databaseURL: process.env.DATABASEURL,
   projectId: process.env.PROJECTID,
   storageBucket: process.env.STORAGEBUCKET,
-  messagingSenderId: process.env.MESSAGINGSENDERID
+  messagingSenderId: process.env.MESSAGINGSENDERID,
 };

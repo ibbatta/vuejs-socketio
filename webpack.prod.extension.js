@@ -24,7 +24,7 @@ const pluginOpts = {
 module.exports = merge(mainConfig, {
   devtool: 'none',
   entry: {
-    main: ['./'],
+    main: ['./index.js'],
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),

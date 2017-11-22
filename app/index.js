@@ -1,19 +1,28 @@
-import style from './index.scss';
+import './index.scss';
 
-console.log(style);
+const firebase = require('firebase');
+const firebaseConfig = require('./../config/firebase.config');
 
-/* firebase.initializeApp({
-  apiKey: 'AIzaSyD23ChWSD1Ua4oDxFnodt-C_BoxvsQ0D9U',
-  authDomain: 'vue-db-socket.firebaseapp.com',
-  databaseURL: 'https://vue-db-socket.firebaseio.com',
-  projectId: 'vue-db-socket',
-  storageBucket: 'vue-db-socket.appspot.com',
-  messagingSenderId: '52286000408',
-});
+firebase.initializeApp(firebaseConfig);
 
-const socket = new io();
+const socket = new io(); // eslint-disable-line
 let userData = null;
-const documentTitleBakcup = document.title;
+
+const getCookie = (cname) => {
+  const name = `${cname}=`;
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i += 1) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+};
 
 // CHAT
 const VueChat = new Vue({
@@ -23,123 +32,93 @@ const VueChat = new Vue({
     messages: [],
     form: '',
     input: '',
-    user: null
+    user: null,
   },
   methods: {
-    keySubmit: function(message, $event) {
+    keySubmit: (message, $event) => {
       if ($event.keyCode === 13 && !$event.shiftKey) {
         $event.preventDefault();
-        if (this.user && message) {
+        if (VueChat.user && message) {
           socket.emit('send-message', {
-            user: this.user,
-            message: message
+            user: VueChat.user,
+            msg: message,
           });
-          this.input = null;
+          VueChat.input = null;
         }
       }
     },
-    clickSubmit: function(message, $event) {
+    clickSubmit: (message, $event) => {
       $event.preventDefault();
-      if (this.user && message) {
+      if (VueChat.user && message) {
         socket.emit('send-message', {
-          user: this.user,
-          message: message
+          user: VueChat.user,
+          msg: message,
         });
-        this.input = null;
+        VueChat.input = null;
       }
     },
-    login: function($event) {
-      var self = this;
+    login: () => {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        .then(function() {
-          var provider = new firebase.auth.GithubAuthProvider();
+        .then(() => {
+          const provider = new firebase.auth.GithubAuthProvider();
           provider.addScope('read:user');
           return firebase.auth().signInWithPopup(provider);
         })
-        .then(function(result) {
+        .then((result) => {
           if (result && result.user && result.additionalUserInfo) {
             document.cookie = `githubAccessToken=${result.credential.accessToken}`;
             userData = {
               userName: result.additionalUserInfo.username,
               displayName: result.user.displayName,
-              photoURL: result.user.photoURL
-            }
-            self.user = userData;
-            socket.emit('user-connected', self.user);
+              userPict: result.user.photoURL,
+            };
+            VueChat.user = userData;
+            socket.emit('user-connected', VueChat.user);
           }
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.error('ERROR', error);
-          self.user = null;
+          VueChat.user = null;
         });
-    }
+    },
   },
   mounted() {
-    const self = this;
     const token = getCookie('githubAccessToken');
     if (token) {
       const credential = firebase.auth.GithubAuthProvider.credential(token);
       firebase.auth().signInAndRetrieveDataWithCredential(credential)
-        .then(function(result) {
+        .then((result) => {
           if (result && result.user && result.additionalUserInfo) {
             userData = {
               userName: result.additionalUserInfo.username,
               displayName: result.user.displayName,
-              photoURL: result.user.photoURL
-            }
-            self.user = userData;
-            socket.emit('user-connected', self.user);
-            self.isLoading = false;
+              userPict: result.user.photoURL,
+            };
+            VueChat.user = userData;
+            socket.emit('user-connected', VueChat.user);
+            VueChat.isLoading = false;
           }
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.error('ERROR', error);
-          self.user = null;
-          self.isLoading = false;
+          VueChat.user = null;
+          VueChat.isLoading = false;
         });
     } else {
       this.user = null;
-      self.isLoading = false;
+      this.isLoading = false;
     }
-  }
+  },
 });
 
-socket.on('read-message', function(bulkMessage) {
-  addBulkMessage(bulkMessage);
-});
-
-socket.on('new-message', function(bulkMessage) {
-  addBulkMessage(bulkMessage);
-  document.title += ' (+1)';
-  setTimeout(function() {
-    document.title = documentTitleBakcup;
-  }, 5000);
-});
-
-function addBulkMessage(bulkMessage) {
-  bulkMessage.forEach(function(value, key) {
+const addBulkMessage = (bulkMessage) => {
+  bulkMessage.forEach((value, key) => {
     Object.assign(bulkMessage[key], {
-      time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString()
+      time: new moment(value.time).format('DD/MM/YYYY - HH:mm').toString(),
     });
   });
   VueChat.messages = bulkMessage;
-}
+};
 
-function getCookie(cname) {
-  var name = cname + '=';
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return '';
-
-  const formatTime = (time) => `${time.toLocaleDateString()} - ${time.toLocaleTimeString()}`;
-}
- */
+socket.on('read-message', bulkMessage => addBulkMessage(bulkMessage));
+socket.on('new-message', bulkMessage => addBulkMessage(bulkMessage));

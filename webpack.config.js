@@ -84,6 +84,9 @@ module.exports = {
     },
     extensions: ['.js', '.jsx'],
   },
+  node: {
+    fs: 'empty',
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'app', 'index.html'),
@@ -95,7 +98,15 @@ module.exports = {
       disable: false,
     }),
     new WebpackPlugin.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV === CONSTANTS.production ? CONSTANTS.production : CONSTANTS.development) },
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV === CONSTANTS.production ? CONSTANTS.production : CONSTANTS.development),
+        APIKEY: JSON.stringify(process.env.APIKEY),
+        AUTHDOMAIN: JSON.stringify(process.env.AUTHDOMAIN),
+        DATABASEURL: JSON.stringify(process.env.DATABASEURL),
+        PROJECTID: JSON.stringify(process.env.PROJECTID),
+        STORAGEBUCKET: JSON.stringify(process.env.STORAGEBUCKET),
+        MESSAGINGSENDERID: JSON.stringify(process.env.MESSAGINGSENDERID),
+      },
     }),
   ],
 };
