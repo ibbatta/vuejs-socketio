@@ -56,9 +56,7 @@
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
     "webpack-merge": "^4.1.1",
-    "webpack-monitor": "^1.0.13"
-  },
-  "devDependencies": {
+    "webpack-monitor": "^1.0.13",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
@@ -95,5 +93,8 @@
     "vue-loader": "^13.5.0",
     "vue-style-loader": "^3.0.3",
     "webpack-dev-server": "^2.8.2"
+  },
+  "devDependencies": {
+
   }
 }

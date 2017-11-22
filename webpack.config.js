@@ -38,12 +38,12 @@ module.exports = {
       }],
     },
     {
-      test: /\.vue$/,
+      test: /\.(vue)$/,
       exclude: /(node_modules|bower_components)/,
       use: ['vue-loader', 'vue-style-loader'],
     },
     {
-      test: /\.css$/,
+      test: /\.(css)$/,
       exclude: /node_modules/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
@@ -65,7 +65,7 @@ module.exports = {
       }),
     },
     {
-      test: /\.json$/,
+      test: /\.(json)$/,
       loader: 'json-loader',
     },
     {
@@ -82,7 +82,7 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.js',
     },
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
   },
   node: {
     fs: 'empty',
