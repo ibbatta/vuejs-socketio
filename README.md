@@ -52,8 +52,9 @@
 
 Before cloning the repo **be sure** you have installed:
 
-* [NodeJs & npm](http://nodejs.org/download/) (version >= 8.x.x)
+* [NodeJs & npm](http://nodejs.org/download/) (version >= 8.9.x)
 * [Yarn](https://yarnpkg.com/en/docs/install) (version >= 1.3.x)
+* [Npm](https://www.npmjs.com/) (version >= 5.5.x)
 
 Then:
 
