@@ -68,6 +68,7 @@ Then:
 - Set up the Firebase auth with GitHub
 - Create an `.env` file and import your Firebase credentials _(like the example below)_
 ```javascript
+NODE_ENV=development
 APIKEY=FIREBASE_API_KEY
 AUTHDOMAIN=FIREBASE_AUTH_DOMAIN
 DATABASEURL=FIREBASE_DATABSE_URL
@@ -91,7 +92,6 @@ The package.json expose these tasks:
 
 ## __Todo__
 
-- [x] Rewrite the repository with Webpack
 - [ ] Reweite the repository with Vue components
 - [ ] Parse markdown for bold, italic and underline texts (???)
 - [ ] Manage user connection notification
