@@ -13,12 +13,13 @@ const mainConfig = require('./webpack.config');
 // const serverConfig = require('./config/server.config');
 
 module.exports = merge(mainConfig, {
-  context: path.join(__dirname),
+  context: path.resolve(__dirname, 'app'),
   devtool: 'none',
   entry: {
-    main: ['index.js'],
+    main: ['./index.js'],
   },
   plugins: [
+    new WebpackPlugin.NoEmitOnErrorsPlugin(),
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
     new MinifyPlugin({
       removeConsole: true,
@@ -35,7 +36,7 @@ module.exports = merge(mainConfig, {
         rejected: false,
         minify: true,
       },
-      paths: glob.sync(path.join(__dirname, 'app/*.html')),
+      paths: glob.sync(path.resolve(__dirname, 'app/*.html')),
     }),
     /* new WebpackMonitor({
       capture: true,
