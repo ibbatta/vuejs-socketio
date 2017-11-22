@@ -86,7 +86,8 @@ The package.json expose these tasks:
 
 ## __Todo__
 
-- [ ] Rewrite the repository with Webpack and Vue components
+- [x] Rewrite the repository with Webpack
+- [ ] Reweite the repository with Vue components
 - [ ] Parse markdown for bold, italic and underline texts (???)
 - [ ] Manage user connection notification
 - [ ] Manage new chat notification
