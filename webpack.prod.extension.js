@@ -6,11 +6,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
-const WebpackMonitor = require('webpack-monitor');
 const WebpackPlugin = require('webpack');
+// const WebpackMonitor = require('webpack-monitor');
 
 const mainConfig = require('./webpack.config');
-const serverConfig = require('./config/server.config');
+// const serverConfig = require('./config/server.config');
 
 const minifyOpts = {
   removeConsole: true,
@@ -38,7 +38,7 @@ module.exports = merge(mainConfig, {
       },
       paths: glob.sync(path.join(__dirname, 'app/*.html')),
     }),
-    new WebpackMonitor({
+    /* new WebpackMonitor({
       capture: true,
       target: serverConfig.monitor.target,
       launch: true,
@@ -46,6 +46,6 @@ module.exports = merge(mainConfig, {
       purifyOptions: {
         output: path.join(__dirname, 'dist'),
       },
-    }),
+    }), */
   ],
 });
