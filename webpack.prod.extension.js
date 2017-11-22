@@ -17,10 +17,6 @@ const minifyOpts = {
   removeDebugger: true,
 };
 
-const pluginOpts = {
-
-};
-
 module.exports = merge(mainConfig, {
   devtool: 'none',
   entry: {
@@ -28,13 +24,10 @@ module.exports = merge(mainConfig, {
   },
   plugins: [
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
-    new WebpackPlugin.optimize.DedupePlugin(),
-    new MinifyPlugin(minifyOpts, pluginOpts),
+    new MinifyPlugin(minifyOpts, {}),
     new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
     new CleanWebpackPlugin(['dist', '.monitor']),
-    new UglifyJSPlugin({
-      sourceMap: true,
-    }),
+    new UglifyJSPlugin(),
     new PurifyCSSPlugin({
       styleExtensions: ['.css', '.scss'],
       moduleExtensions: ['.html'],

@@ -1,9 +1,6 @@
 const dotenv = require('dotenv');
-const CONSTANTS = require('./constants.config');
 
-if (process.env.NODE_ENV !== CONSTANTS.production) {
-  dotenv.load();
-}
+dotenv.load();
 
 module.exports = {
   apiKey: process.env.APIKEY,
