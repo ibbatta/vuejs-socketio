@@ -22,6 +22,8 @@
 
 - [x] Vue.js framework
 - [x] Bulma css framework
+- [x] Webpack
+- [x] ES6 supported
 - [x] Socket.io
 - [x] Firebase DB
 - [x] Login with GitHub (to retrieve user information and profile pict)
