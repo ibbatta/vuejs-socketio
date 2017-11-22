@@ -16,17 +16,6 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.(html|htm|xhtml|ejs|hbs)$/,
-      use: [{
-        loader: 'html-loader',
-        options: {
-          minimize: true,
-          removeComments: true,
-          collapseWhitespace: true,
-        },
-      }],
-    },
-    {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules|bower_components)/,
       use: [{
