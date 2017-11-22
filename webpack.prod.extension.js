@@ -13,7 +13,7 @@ const mainConfig = require('./webpack.config');
 // const serverConfig = require('./config/server.config');
 
 module.exports = merge(mainConfig, {
-  context: path.join(__dirname, 'app'),
+  context: path.join(__dirname),
   devtool: 'none',
   entry: {
     main: ['index.js'],
