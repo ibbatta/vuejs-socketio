@@ -3,7 +3,7 @@
 [![bitHound Overall Score](https://www.bithound.io/github/ibbatta/vuejs-socketio/badges/score.svg)](https://www.bithound.io/github/ibbatta/vuejs-socketio)
 
 
->This repo contains a personal javascript chat to learn and test something about Vue.js and Socket.io (+ Bulma css framework)
+>This repo contains a personal javascript chat to learn and test something about Vue.js, Socket.io and Firebase (+ Bulma css framework)
 
 ---
 
