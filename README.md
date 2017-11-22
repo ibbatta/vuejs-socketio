@@ -12,10 +12,13 @@
 
 <img src="./repo_readme_assets/logo-npm.png" height="55">&nbsp;&nbsp;
 <img src="./repo_readme_assets/logo-node.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-webpack.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-es6.png" height="55">&nbsp;&nbsp;
 <img src="./repo_readme_assets/logo-vue.png" height="55">&nbsp;&nbsp;
 <img src="./repo_readme_assets/logo-firebase.png" height="55">&nbsp;&nbsp;
 <img src="./repo_readme_assets/logo-bulma.png" height="55">&nbsp;&nbsp;
 <img src="./repo_readme_assets/logo-yarn.png" height="55">&nbsp;&nbsp;
+<img src="./repo_readme_assets/logo-babel.png" height="55">&nbsp;&nbsp;
 
 - [x] Vue.js framework
 - [x] Bulma css framework
