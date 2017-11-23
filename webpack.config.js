@@ -41,7 +41,18 @@ module.exports = {
     {
       test: /\.(vue)$/,
       exclude: /(node_modules|bower_components)/,
-      use: ['vue-loader', 'vue-style-loader'],
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          css: ExtractTextPlugin.extract({
+            fallback: 'vue-style-loader',
+            use: [
+              'css-loader',
+              'postcss-loader',
+            ],
+          }),
+        },
+      },
     },
     {
       test: /\.(css)$/,
@@ -73,7 +84,7 @@ module.exports = {
     {
       test: /\.(png|svg|jpg|gif)$/,
       exclude: /(node_modules|bower_components)/,
-      loader: 'file-loader',
+      loader: 'url-loader',
       options: {
         name: '[name].[ext]',
         publicPath: './',
@@ -84,12 +95,16 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.js',
     },
-    extensions: ['.js', '.jsx', '.scss', '.vue'],
+    extensions: ['.js', '.jsx', '.scss', '.vue', '.html'],
   },
   node: {
     fs: 'empty',
   },
   plugins: [
+    new WebpackPlugin.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'app', 'index.html'),
       inject: true,

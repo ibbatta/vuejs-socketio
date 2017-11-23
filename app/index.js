@@ -1,5 +1,7 @@
 import './index.scss';
-import EmptyChat from './components/EmptyChat/EmptyChat';
+import EmptyChat from './components/EmptyChat.vue';
+import MessageChat from './components/MessageChat.vue';
+import FormChat from './components/FormChat.vue';
 
 const Vue = require('vue');
 const Moment = require('moment');
@@ -31,14 +33,16 @@ const getCookie = (cname) => {
 const VueChat = new Vue({
   el: '#chat',
   data: {
-    isLoading: true,
+    loading: true,
     messages: [],
     form: '',
     input: '',
-    user: null,
+    user: {},
   },
   components: {
     'empty-chat': EmptyChat,
+    'message-chat': MessageChat,
+    'form-chat': FormChat,
   },
   methods: {
     keySubmit: (message, $event) => {
@@ -104,17 +108,17 @@ const VueChat = new Vue({
             VueChat.user = userData;
             // TODO: implement user connection
             // socket.emit('user-connected', VueChat.user);
-            VueChat.isLoading = false;
+            VueChat.loading = false;
           }
         })
         .catch((error) => {
           console.error('ERROR', error); // eslint-disable-line
           VueChat.user = null;
-          VueChat.isLoading = false;
+          VueChat.loading = false;
         });
     } else {
       this.user = null;
-      this.isLoading = false;
+      this.loading = false;
     }
   },
 });
