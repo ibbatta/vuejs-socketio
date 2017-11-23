@@ -84,13 +84,14 @@ webpackDevMiddleware.waitUntilValid(() => {
   if (process.env.NODE_ENV === CONSTANTS.development) {
     // console.clear(); // eslint-disable-line
   }
-  console.log(chalk.red(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgRed(chalk.white(uri))}`)); // eslint-disable-line
+  console.log(chalk.green(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgRed(chalk.white(uri))}`)); // eslint-disable-line
 
   socketIO.on('connection', (socket) => {
     initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
-    socket.on('user-connected', (userData) => {
-      console.log(`USER CONNECTED: ${userData.userName} - ${userData.displayName}`); // eslint-disable-line
-    });
+    // TODO: implement user connection
+    /* socket.on('user-connected', (userData) => {
+      console.log(`USER CONNECTED: ${chalk.underline.bold.yellow(userData.userName)} - ${userData.displayName}`); // eslint-disable-line
+    }); */
     socket.on('send-message', (formData) => {
       saveMessageToDb(formData);
     });

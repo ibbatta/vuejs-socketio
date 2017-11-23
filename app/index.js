@@ -79,7 +79,8 @@ const VueChat = new Vue({
               userPict: result.user.photoURL,
             };
             VueChat.user = userData;
-            socket.emit('user-connected', VueChat.user);
+            // TODO: implement user connection
+            // socket.emit('user-connected', VueChat.user);
           }
         })
         .catch((error) => {
@@ -101,7 +102,8 @@ const VueChat = new Vue({
               userPict: result.user.photoURL,
             };
             VueChat.user = userData;
-            socket.emit('user-connected', VueChat.user);
+            // TODO: implement user connection
+            // socket.emit('user-connected', VueChat.user);
             VueChat.isLoading = false;
           }
         })
