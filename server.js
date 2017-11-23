@@ -81,11 +81,11 @@ const saveMessageToDb = (formData) => {
 console.log(chalk.bgGreen(chalk.black('###   Starting server...   ###'))); // eslint-disable-line
 
 webpackDevMiddleware.waitUntilValid(() => {
-  const uri = `http://localhost: ${settingsConfig.serverPort}`;
+  const uri = `http://localhost:${settingsConfig.serverPort}`;
   if (process.env.NODE_ENV === CONSTANTS.development) {
     // console.clear(); // eslint-disable-line
   }
-  console.log(chalk.green(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgRed(chalk.white(uri))}`)); // eslint-disable-line
+  console.log(chalk.italic.bold.yellow(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgYellow(chalk.black(uri))}`)); // eslint-disable-line
 
   socketIO.on('connection', (socket) => {
     initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
