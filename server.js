@@ -74,6 +74,7 @@ const saveMessageToDb = (formData) => {
     msg,
     time,
   });
+  socketIO.emit('message-saved');
 };
 
 // default port where dev server listens for incoming traffic

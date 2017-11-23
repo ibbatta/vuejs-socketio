@@ -37,7 +37,7 @@ const VueChat = new Vue({
     messages: [],
     form: '',
     input: '',
-    user: {},
+    user: null,
   },
   components: {
     'empty-chat': EmptyChat,
@@ -48,23 +48,23 @@ const VueChat = new Vue({
     keySubmit: (message, $event) => {
       if ($event.keyCode === 13 && !$event.shiftKey) {
         $event.preventDefault();
-        if (VueChat.user && message) {
+        if (VueChat.user && message && message.trim()) {
           socket.emit('send-message', {
             user: VueChat.user,
             msg: message,
           });
-          VueChat.input = null;
+          // VueChat.input = null; // TODO: this cause an error, fix it
         }
       }
     },
     clickSubmit: (message, $event) => {
       $event.preventDefault();
-      if (VueChat.user && message) {
+      if (VueChat.user && message && message.trim()) {
         socket.emit('send-message', {
           user: VueChat.user,
           msg: message,
         });
-        VueChat.input = null;
+        // VueChat.input = null;
       }
     },
     login: () => {
@@ -134,3 +134,7 @@ const addBulkMessage = (bulkMessage) => {
 
 socket.on('read-message', bulkMessage => addBulkMessage(bulkMessage));
 socket.on('new-message', bulkMessage => addBulkMessage(bulkMessage));
+socket.on('message-saved', () => {
+  VueChat.input = null;
+  console.log('saved');
+});

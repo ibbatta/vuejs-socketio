@@ -4,15 +4,15 @@
   </div>
   <div v-else>
       <div v-if="user">
-          <form v-on:submit.prevent="clickSubmit(input, $event)">
+          <form>
               <small>Press ENTER to submit</small>
               <p class="control">
-                  <textarea v-model="input" v-on:keydown="keySubmit(input, $event)" class="textarea" placeholder="Write message"></textarea>
+                  <textarea v-model="inputBind" v-on:keyup="keySubmit(inputBind, $event)" class="textarea" placeholder="Write message"></textarea>
               </p>
               <br>
               <div class="control is-grouped">
                   <p class="control">
-                      <button v-on:click="clickSubmit(input, $event)" class="button is-primary" :disabled="!input">Submit</button>
+                      <button type="submit" v-on:click="clickSubmit(inputBind, $event)" class="button is-primary" :disabled="!inputBind || !inputBind.trim()">Submit</button>
                   </p>
               </div>
           </form>
@@ -33,5 +33,10 @@
 <script>
 export default {
     props: ['loading', 'user', 'input', 'keySubmit', 'clickSubmit', 'login'],
-};
+    data: () => {
+      return {
+        inputBind: this.input
+      }
+    }
+}
 </script>
