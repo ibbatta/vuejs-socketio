@@ -101,10 +101,6 @@ module.exports = {
     fs: 'empty',
   },
   plugins: [
-    new WebpackPlugin.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'app', 'index.html'),
       inject: true,

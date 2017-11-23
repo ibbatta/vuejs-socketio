@@ -28,6 +28,7 @@
 
 <script>
 export default {
+    name: 'MessageChat',
     props: ['message'],
 };
 </script>

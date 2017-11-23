@@ -32,6 +32,7 @@
 
 <script>
 export default {
+    name: 'FormChat',
     props: ['loading', 'user', 'input', 'keySubmit', 'clickSubmit', 'login'],
     data: () => {
       return {

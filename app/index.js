@@ -53,7 +53,9 @@ const VueChat = new Vue({
             user: VueChat.user,
             msg: message,
           });
-          // VueChat.input = null; // TODO: this cause an error, fix it
+          VueChat.$children.forEach((value) => {
+            Object.assign(value, { inputBind: null });
+          });
         }
       }
     },
@@ -64,7 +66,9 @@ const VueChat = new Vue({
           user: VueChat.user,
           msg: message,
         });
-        // VueChat.input = null;
+        VueChat.$children.forEach((value) => {
+          Object.assign(value, { inputBind: null });
+        });
       }
     },
     login: () => {
