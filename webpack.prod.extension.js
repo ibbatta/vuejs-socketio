@@ -5,12 +5,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 const WebpackPlugin = require('webpack');
-// const WebpackMonitor = require('webpack-monitor');
-
 const mainConfig = require('./webpack.config');
-// const serverConfig = require('./config/server.config');
 
 module.exports = merge(mainConfig, {
   devtool: 'none',
@@ -20,31 +16,22 @@ module.exports = merge(mainConfig, {
   plugins: [
     new WebpackPlugin.NoEmitOnErrorsPlugin(),
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
-    new MinifyPlugin({
-      removeConsole: true,
-      removeDebugger: true,
-    }, {}),
     new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
     new CleanWebpackPlugin(['dist']),
-    new UglifyJSPlugin(),
+    new UglifyJSPlugin({
+      exclude: /(node_modules|bower_components)/,
+      cache: true,
+      parallel: true,
+    }),
     new PurifyCSSPlugin({
       styleExtensions: ['.css', '.scss'],
       moduleExtensions: ['.html'],
       purifyOptions: {
-        info: true,
+        info: false,
         rejected: false,
         minify: true,
       },
-      paths: glob.sync(path.resolve(__dirname, 'app/*.html')),
+      paths: glob.sync(path.resolve(__dirname, 'app/index.html')),
     }),
-    /* new WebpackMonitor({
-      capture: true,
-      target: serverConfig.monitor.target,
-      launch: true,
-      port: serverConfig.monitor.port,
-      purifyOptions: {
-        output: path.join(__dirname, 'dist'),
-      },
-    }), */
   ],
 });

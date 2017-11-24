@@ -17,6 +17,8 @@ const socketIO = require('socket.io')(http);
 firebase.initializeApp(firebaseConfig);
 const messagesDbRef = firebase.database().ref(settingsConfig.dbChatRef);
 
+console.log(chalk.bgGreen(chalk.black('###   Starting server...   ###'))); // eslint-disable-line
+
 const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   historyApiFallback: true,
@@ -26,6 +28,10 @@ const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
   quiet: false,
 });
 
+let snapshotValue;
+let bulkMessage = [];
+let [user, name, pict, msg, time] = [];
+const uri = `http://localhost:${settingsConfig.serverPort}`;
 const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {});
 
 app.use(webpackDevMiddleware);
@@ -38,16 +44,16 @@ app.use(serverPathConfig.dev.assetsFavicon, express.static(path.join(__dirname, 
 
 const initLoadMessageFromDb = (limit) => {
   messagesDbRef.orderByChild('time').limitToLast(limit).once('value', (snapshot) => {
-    const messages = snapshot.val();
-    if (messages) {
-      const bulkMessage = [];
-      Object.keys(messages).forEach((key) => {
+    snapshotValue = snapshot.val();
+    if (snapshotValue) {
+      bulkMessage = [];
+      Object.keys(snapshotValue).forEach((key) => {
         bulkMessage.push({
-          user: messages[key].user,
-          name: messages[key].name,
-          pict: messages[key].pict,
-          message: messages[key].msg,
-          time: messages[key].time,
+          user: snapshotValue[key].user,
+          name: snapshotValue[key].name,
+          pict: snapshotValue[key].pict,
+          message: snapshotValue[key].msg,
+          time: snapshotValue[key].time,
         });
       });
       socketIO.emit('read-message', bulkMessage);
@@ -56,7 +62,7 @@ const initLoadMessageFromDb = (limit) => {
 };
 
 const saveMessageToDb = (formData) => {
-  const [user, name, pict, msg, time] = [
+  [user, name, pict, msg, time] = [
     formData.user.userName,
     formData.user.displayName,
     formData.user.userPict,
@@ -77,10 +83,7 @@ const saveMessageToDb = (formData) => {
   socketIO.emit('message-saved');
 };
 
-console.log(chalk.bgGreen(chalk.black('###   Starting server...   ###'))); // eslint-disable-line
-
 webpackDevMiddleware.waitUntilValid(() => {
-  const uri = `http://localhost:${settingsConfig.serverPort}`;
   console.log(chalk.italic.bold.yellow(`> Listening ${chalk.underline.white(process.env.NODE_ENV)} server at: ${chalk.underline.white(uri)}`)); // eslint-disable-line
 
   socketIO.on('connection', (socket) => {
@@ -95,16 +98,16 @@ webpackDevMiddleware.waitUntilValid(() => {
   });
 
   messagesDbRef.orderByChild('time').on('value', (snapshot) => {
-    const messages = snapshot.val();
-    if (messages) {
-      const bulkMessage = [];
-      Object.keys(messages).forEach((key) => {
+    snapshotValue = snapshot.val();
+    if (snapshotValue) {
+      bulkMessage = [];
+      Object.keys(snapshotValue).forEach((key) => {
         bulkMessage.push({
-          user: messages[key].user,
-          name: messages[key].name,
-          pict: messages[key].pict,
-          message: messages[key].msg,
-          time: messages[key].time,
+          user: snapshotValue[key].user,
+          name: snapshotValue[key].name,
+          pict: snapshotValue[key].pict,
+          message: snapshotValue[key].msg,
+          time: snapshotValue[key].time,
         });
       });
       socketIO.emit('new-message', bulkMessage);
