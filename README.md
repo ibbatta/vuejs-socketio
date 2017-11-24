@@ -94,7 +94,7 @@ The package.json expose these tasks:
 
 ## __Todo__
 
-- [ ] Reweite the repository with Vue components
+- [ ] Add Google login / auth
 - [ ] Parse markdown for bold, italic and underline texts (???)
 - [ ] Manage user connection notification
 - [ ] Manage new chat notification

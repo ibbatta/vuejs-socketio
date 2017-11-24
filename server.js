@@ -77,15 +77,11 @@ const saveMessageToDb = (formData) => {
   socketIO.emit('message-saved');
 };
 
-// default port where dev server listens for incoming traffic
 console.log(chalk.bgGreen(chalk.black('###   Starting server...   ###'))); // eslint-disable-line
 
 webpackDevMiddleware.waitUntilValid(() => {
   const uri = `http://localhost:${settingsConfig.serverPort}`;
-  if (process.env.NODE_ENV === CONSTANTS.development) {
-    // console.clear(); // eslint-disable-line
-  }
-  console.log(chalk.italic.bold.yellow(`> Listening ${chalk.white(process.env.NODE_ENV)} server at: ${chalk.bgYellow(chalk.black(uri))}`)); // eslint-disable-line
+  console.log(chalk.italic.bold.yellow(`> Listening ${chalk.underline.white(process.env.NODE_ENV)} server at: ${chalk.underline.white(uri)}`)); // eslint-disable-line
 
   socketIO.on('connection', (socket) => {
     initLoadMessageFromDb(settingsConfig.numberMessageLoaded);
