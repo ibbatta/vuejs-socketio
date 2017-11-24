@@ -41,13 +41,6 @@
 ---
 
 
-## __Demo__
-
-[Live demo](https://testwebsocketvuejs.herokuapp.com/)
-
----
-
-
 ## __Set up__
 
 Before cloning the repo **be sure** you have installed:
