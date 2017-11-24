@@ -49,6 +49,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.7",
+    "dotenv": "^4.0.0",
     "es6-promise": "^4.1.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.0",
@@ -84,7 +85,6 @@
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0",
     "eslint": "^4.11.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-standard": "^10.2.1",
