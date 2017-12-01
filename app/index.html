@@ -28,16 +28,22 @@
 </head>
 
 <body>
-    <section id="chat" class="section">
-        <div class="container">
-            <empty-chat v-if="messages.length <= 0"></empty-chat>
-            <message-chat v-else v-for="(message, $index) in messages" :message="message" :input="input" :key="$index"></message-chat>
-            <hr>
-        </div>
-        <div class="container">
-            <form-chat :loading="loading" :user="user" :input="input" :key-submit="keySubmit" :click-submit="clickSubmit" :login="login"></form-chat>
-        </div>
-    </section>
+    <div class="main-flex-wrapper">
+        <section id="chat" class="section chat-section">
+            <div class="flex-wrapepr position-start">
+                <div class="container">
+                    <empty-chat v-if="messages.length <= 0"></empty-chat>
+                    <message-chat v-else v-for="(message, $index) in messages" :message="message" :input="input" :key="$index"></message-chat>
+                    <hr>
+                </div>
+            </div>
+            <div class="flex-wrapper position-end">
+                <div class="container">
+                    <form-chat :loading="loading" :user="user" :input="input" :key-submit="keySubmit" :click-submit="clickSubmit" :login="login"></form-chat>
+                </div>
+            </div>
+        </section>
+    </div>
     <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 </body>
 

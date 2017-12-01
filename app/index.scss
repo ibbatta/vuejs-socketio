@@ -1,11 +1,17 @@
-a {
-    color: #00d1b2;
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
 }
 
 .section {
     padding: 1rem;
 }
 
-.messages li {
-    list-style: none;
-}
+
+/* a {
+    color: #00d1b2;
+} */

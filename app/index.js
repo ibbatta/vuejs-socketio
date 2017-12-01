@@ -8,6 +8,8 @@ const Moment = require('moment');
 const firebase = require('firebase');
 const firebaseConfig = require('./../config/firebase.config');
 
+const pageTitle = document.title;
+
 firebase.initializeApp(firebaseConfig);
 
 const socket = new io();
@@ -140,5 +142,20 @@ socket.on('read-message', bulkMessage => addBulkMessage(bulkMessage));
 socket.on('new-message', bulkMessage => addBulkMessage(bulkMessage));
 socket.on('message-saved', () => {
   VueChat.input = null;
-  console.log('saved');
 });
+
+function onBlur() {
+  document.title = 'I miss you :(';
+}
+
+function onFocus() {
+  document.title = pageTitle;
+}
+
+if ( /* @cc_on!@ */ false) { // check for Internet Explorer
+  document.onfocusin = onFocus;
+  document.onfocusout = onBlur;
+} else {
+  window.onfocus = onFocus;
+  window.onblur = onBlur;
+}
