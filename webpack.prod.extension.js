@@ -16,13 +16,13 @@ module.exports = merge(mainConfig, {
   plugins: [
     new WebpackPlugin.NoEmitOnErrorsPlugin(),
     new WebpackPlugin.optimize.OccurrenceOrderPlugin(),
-    new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
     new CleanWebpackPlugin(['dist']),
     new UglifyJSPlugin({
       exclude: /(node_modules|bower_components)/,
       cache: true,
       parallel: true,
     }),
+    new ExtractTextPlugin({ filename: '[name].bundle.css', allChunks: true, disable: false }),
     new PurifyCSSPlugin({
       styleExtensions: ['.css', '.scss'],
       moduleExtensions: ['.html'],
