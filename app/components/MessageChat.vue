@@ -4,14 +4,14 @@
           <div class="media">
               <div class="media-left">
                   <figure class="image is-48x48">
-                      <a target="_blank" :href="'http://github.com/' + message.user">
+                      <a target="_blank" :href="'http://github.com/' + message.user" rel="noopener">
                         <img :src="message.pict" alt="Profile Pict">
                       </a>
                   </figure>
               </div>
               <div class="media-content">
                   <p class="title is-4">
-                      <a target="_blank" :href="'http://github.com/' + message.user" v-text="'@' + message.user"></a>
+                      <a target="_blank" :href="'http://github.com/' + message.user" v-text="'@' + message.user" rel="noopener"></a>
                   </p>
                   <p class="subtitle is-6" v-text="message.name"></p>
               </div>

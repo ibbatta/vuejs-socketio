@@ -1,6 +1,6 @@
 <template>
 <div v-if="loading">
-      <a class="button is-primary is-loading is-outlined">Loading</a>
+      <a class="button is-link is-loading is-outlined">Loading</a>
   </div>
   <div v-else>
       <div v-if="user">
@@ -12,14 +12,14 @@
               <br>
               <div class="control is-grouped">
                   <p class="control">
-                      <button type="submit" v-on:click="clickSubmit(inputBind, $event)" class="button is-primary" :disabled="!inputBind || !inputBind.trim()">Submit</button>
+                      <button type="submit" v-on:click="clickSubmit(inputBind, $event)" class="button is-link" :disabled="!inputBind || !inputBind.trim()">Submit</button>
                   </p>
               </div>
           </form>
       </div>
       <div v-else class="control is-grouped">
           <p class="control">
-              <button v-on:click="login($event)" class="button is-primary is-outlined">
+              <button v-on:click="login($event)" class="button is-link is-outlined">
                   <span class="icon">
                 <i class="fa fa-github"></i>
               </span>
