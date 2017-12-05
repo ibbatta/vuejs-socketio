@@ -87,11 +87,10 @@ The package.json expose these tasks:
 
 ## __Todo__
 
-- [ ] Add Google login / auth
+- [ ] Add extra login / auth
 - [ ] Parse markdown for bold, italic and underline texts (???)
 - [ ] Manage user connection notification
 - [ ] Manage new chat notification
-- [ ] Manage message delete watcher
 - [ ] Develop hashtag system (???)
 - [ ] Develop search by user / hashtag
 
